@@ -1,0 +1,15 @@
+[submodule "lib/batteries"]
+	path = lib/batteries
+	url = https://github.com/1bardesign/batteries
+[submodule "lib/classic"]
+	path = lib/classic
+	url = https://github.com/rxi/classic/
+[submodule "lib/push"]
+	path = lib/push
+	url = https://github.com/Ulydev/push
+[submodule "lib/baton"]
+	path = lib/baton
+	url = https://github.com/tesselode/baton
+[submodule "lib/moses"]
+	path = lib/moses
+	url = https://github.com/Yonaba/Moses

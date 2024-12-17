@@ -5,9 +5,9 @@ pixel-art games, and includes libraries to get you up and running as soon as you
 fork the repo.
 
 # Cleanup For Usage
-You can safely delete this README and the entire `src/sample` folder.
+You can safely delete this README and the entire `sample` folder.
 
-Make sure to delete the line `require("src.sample")` in `main.lua`.
+Make sure to delete the line `require("sample")(root)` in `main.lua`.
 
 # Style
 Classes and class files are in `PascalCase`. Class member naming follows these guidelines:

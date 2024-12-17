@@ -9,7 +9,7 @@ function StarParticle:new(x, y, velocity_x, velocity_y)
 	self._elapsed = 0
 	self._vx = velocity_x or 0
 	self._vy = velocity_y or 0
-	self._star = love.graphics.newImage("src/sample/assets/star.png")
+	self._star = love.graphics.newImage("sample/assets/star.png")
 end
 
 function StarParticle:update(dt)

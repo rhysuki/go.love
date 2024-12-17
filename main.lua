@@ -8,9 +8,10 @@ local root
 function love.load()
 	print("up'n'runnin")
 	Window:setup(3)
+	love.window.setTitle("Project Skeleton")
 	root = Node()
 
-	require("src.sample")(root)
+	require("sample")(root)
 end
 
 function love.update(dt)

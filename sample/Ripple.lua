@@ -3,14 +3,14 @@ local colors = require("assets.data.collections.colors")
 local Node = require("src.Node")
 local Ripple = Node:extend()
 
-function Ripple:new(x, y)
+function Ripple:new(x, y, target_radius)
 	Ripple.super.new(self, x, y)
 	self._radius = 0
-	self._line_width = 10
+	self._line_width = 8
 	self._tween = timer.tween(
 		0.5,
 		self,
-		{_radius = 35, _line_width = 0},
+		{_radius = 40, _line_width = 0},
 		"out-circ",
 		function() self:die() end
 	)

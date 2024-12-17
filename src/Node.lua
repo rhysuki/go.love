@@ -1,3 +1,4 @@
+local Signal = require("src.Signal")
 local Class = require("lib.classic.classic")
 ---An ingame object. This is the building block for any class that contributes
 ---to the gameplay itself; things that change with time and player input.
@@ -18,6 +19,8 @@ function Node:new(x, y)
 	self.is_active = true
 	self.is_visible = true
 	self.is_alive = true
+
+	self.died = Signal()
 end
 
 ---Called by this Node's parent when it becomes a child node. Unlike the constructor,
@@ -92,6 +95,8 @@ function Node:die()
 	for _, child in ipairs(self._CHILDREN) do
 		child:die()
 	end
+
+	self.died:emit()
 end
 
 return Node

@@ -8,3 +8,10 @@ fork the repo.
 You can safely delete this README and the entire `src/sample` folder.
 
 Make sure to delete the line `require("src.sample")` in `main.lua`.
+
+# Style
+Classes and class files are in `PascalCase`. Class member naming follows these guidelines:
+
+1. Constants are in `UPPER_SNAKE_CASE`.
+2. Variables and functions are in `snake_case`.
+3. Private members are prefixed with an underscore `_`. These are generally only supposed to be used within the class itself, and aren't part of its public API.

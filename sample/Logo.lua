@@ -23,7 +23,10 @@ function Logo:new(x, y)
 		logo_characters:die()
 		self:add_child(StarParticleCurtain())
 		self:add_child(LogoText(self.x - 14, self.y - 10))
+		love.audio.newSource("sample/assets/jingle.ogg", "static"):play()
 	end)
+
+	love.audio.newSource("sample/assets/explosion.ogg", "static"):play()
 end
 
 function Logo:update(dt)

@@ -39,6 +39,8 @@ function StarCircle:new()
 			end)
 		end
 	)
+
+	love.audio.newSource("sample/assets/twinkle.ogg", "static"):play()
 end
 
 function StarCircle:update(dt)

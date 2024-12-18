@@ -15,11 +15,19 @@ function Node:new(x, y)
 
 	self.x = x or 0
 	self.y = y or 0
+	-- The Node this is a child of, if any. This gets set on the parent's
+	-- `add_child()` call.
 	self.parent = nil
+	-- If this is `false`, this Node won't update (but still might be drawn).
 	self.is_active = true
+	-- If this is `false`, this Node won't be drawn (but still might update).
 	self.is_visible = true
+	-- If this is `false`, this Node doesn't update or draw, and will be removed
+	-- from the game in the next update cycle. Usually, you want to set this with
+	-- `die()` instead of doing it manually.
 	self.is_alive = true
 
+	-- Fires when this Node dies.
 	self.died = Signal()
 end
 
@@ -85,8 +93,8 @@ function Node:iter_children()
 	end
 end
 
----Die and kill all children nodes. They stop updating and drawing until the start
----of the next update cycle, wherein they're removed from the game.
+---Die and kill all children nodes. They stop updating and drawing, and are removed
+---from the game in the next update cycle.
 function Node:die()
 	self.is_active = false
 	self.is_visible = false

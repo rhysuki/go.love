@@ -30,7 +30,7 @@ function LogoText:draw()
 
 	love.graphics.setColor(self._dark_pink)
 	love.graphics.printf(
-		"Love-Godot Template\nv0.0.1",
+		"Love-Godot Template\nv1.0.0",
 		self.x - 37,
 		self.y + self._progress * 10,
 		100,

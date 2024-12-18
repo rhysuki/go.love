@@ -1,17 +1,34 @@
 # About
-A lightweight project skeleton for [LÖVE](https://love2d.org/) games that takes
-inspiration from [Godot](https://godotengine.org/). It's geared toward low-spec
-pixel-art games, and includes libraries to get you up and running as soon as you
-fork the repo.
+A lightweight project skeleton for [LÖVE](https://love2d.org/) games that takes inspiration from [Godot](https://godotengine.org/). It's geared toward low-spec pixel-art games, and includes libraries to get you up and running as soon as you fork the repo.
 
-# Cleanup For Usage
-You can safely delete this README and the entire `sample` folder.
+# Usage
 
-Make sure to delete the line `require("sample")(root)` in `main.lua`.
+To see the sample, run this repo as a LÖVE project. You can safely delete the entire `sample` folder - make sure to also delete the line `require("sample")(root)` in `main.lua`.
 
-# Style
-Classes and class files are in `PascalCase`. Class member naming follows these guidelines:
+## /src/
 
-1. Constants are in `UPPER_SNAKE_CASE`.
-2. Variables and functions are in `snake_case`.
-3. Private members are prefixed with an underscore `_`. These are generally only supposed to be used within the class itself, and aren't part of its public API.
+`Node` is the building block for every ingame object. Nodes can have other Nodes as children, which are updated and drawn automatically, forming a tree structure.
+
+`Signal` implements the [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern), making communication between Nodes easy and loosely-coupled.
+
+
+> [!IMPORTANT]
+> For further info and examples, read the documentation on the source files for [Node](/src/Node.lua) and [Signal](/src/Signal.lua).
+
+## /lib/
+
+Libraries for common operations. This repo includes submodules for:
+
+* [anim8]() - Easily transforms spritesheets into animated objects.
+* [baton]() - Abstracts raw inputs into "actions" which can then be checked, altered or replaced.
+* [batteries]() - A better "standard library" for LÖVE games. Has utilities for math, sequencing, timing, vectors and more.
+* [classic]() - Tiny, battle-tested class module for object orientation.
+* [hump]() - General-purpose utilities for LÖVE. This repo mostly uses it for its timing and tweening functions.
+* [push]() - Window resolution handling.
+
+## /assets/
+
+This is where static resources - data that doesn't change during the game - should go. Images, audio, fonts, but also things like Lua tables and Tiled maps.
+
+# Contributing
+Issues, pull requests and suggestions are welcome. You can poke me in the [LÖVE Discord server](https://discord.gg/rhUets9).

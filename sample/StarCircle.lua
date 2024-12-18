@@ -1,21 +1,18 @@
 local timer = require("lib.hump.timer")
-local colors = require("assets.data.collections.colors")
+local help = require("sample.help")
 local Window = require("src.singleton.Window")
 local Signal = require("src.Signal")
 local StarTrail = require("sample.StarTrail")
 local Node = require("src.Node")
 local StarCircle = Node:extend()
 
-local w2 = math.floor(Window.screen_width / 2)
-local h2 = math.floor(Window.screen_height / 2)
-
 function StarCircle:new()
 	StarCircle.super.new(self)
 
 	self.animation_finished = Signal()
 
-	self.x = w2 - 6
-	self.y = h2 - 3
+	self.x = Window.half_screen_width - 6
+	self.y = Window.half_screen_height - 3
 
 	self._radius = 170
 	self._star_amount = 5
@@ -40,7 +37,7 @@ function StarCircle:new()
 		end
 	)
 
-	love.audio.newSource("sample/assets/twinkle.ogg", "static"):play()
+	help.sounds.twinkle:play()
 end
 
 function StarCircle:update(dt)
@@ -54,8 +51,6 @@ function StarCircle:draw()
 		local angle = math.rad(((360 / self._star_amount) * (i - 1)) + self._rotation)
 		self._star_trails[i].x = 6 + self.x + math.cos(angle) * self._radius
 		self._star_trails[i].y = 2 + self.y + math.sin(angle) * self._radius
-
-		-- love.graphics.draw(self._star, self.x + math.cos(angle) * self._radius, self.y + math.sin(angle) * self._radius)
 	end
 end
 

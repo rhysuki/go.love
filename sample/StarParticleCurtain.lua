@@ -8,10 +8,8 @@ function StarParticleCurtain:new()
 	StarParticleCurtain.super.new(self)
 
 	for i = 0, 15 do
-		local x = Window.screen_width * (i / 15)
-
 		timer.after(i / 30, function()
-			self:add_child(StarParticle(x, -5))
+			self:add_child(StarParticle(Window.screen_width * (i / 15), -5))
 		end)
 	end
 end

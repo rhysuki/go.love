@@ -1,4 +1,6 @@
 local timer = require("lib.hump.timer")
+local help = require("sample.help")
+local Ripple = require("sample.Ripple")
 local LogoCharacter = require("sample.LogoCharacter")
 local LogoText = require("sample.LogoText")
 local StarParticleCurtain = require("sample.StarParticleCurtain")
@@ -19,22 +21,15 @@ function Logo:new(x, y)
 		logo_characters:add_child(LogoCharacter(char_x - i * 4, char_y, letters[4 - i], delay))
 	end
 
+	self:add_child(Ripple(self.x, self.y))
+	help.sounds.explosion:play()
+
 	timer.after(1, function()
 		logo_characters:die()
 		self:add_child(StarParticleCurtain())
 		self:add_child(LogoText(self.x - 14, self.y - 10))
-		love.audio.newSource("sample/assets/jingle.ogg", "static"):play()
+		help.sounds.jingle:play()
 	end)
-
-	love.audio.newSource("sample/assets/explosion.ogg", "static"):play()
-end
-
-function Logo:update(dt)
-	Logo.super.update(self, dt)
-end
-
-function Logo:draw()
-	Logo.super.draw(self)
 end
 
 return Logo

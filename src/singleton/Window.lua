@@ -11,6 +11,9 @@ local Window = {
 	screen_height = 192,
 }
 
+Window.half_screen_width = Window.screen_width / 2
+Window.half_screen_height = Window.screen_height / 2
+
 ---@param scale integer?
 function Window:setup(scale)
 	love.graphics.setDefaultFilter("nearest", "nearest")
@@ -31,6 +34,7 @@ function Window:setup(scale)
 		}
 	)
 
+	-- Require and create fonts AFTER setting up graphics state
 	love.graphics.setFont(require("assets.data.collections.fonts").small)
 end
 

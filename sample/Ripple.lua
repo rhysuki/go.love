@@ -3,7 +3,7 @@ local colors = require("assets.data.collections.colors")
 local Node = require("src.Node")
 local Ripple = Node:extend()
 
-function Ripple:new(x, y, target_radius)
+function Ripple:new(x, y)
 	Ripple.super.new(self, x, y)
 	self._radius = 0
 	self._line_width = 8
@@ -14,10 +14,6 @@ function Ripple:new(x, y, target_radius)
 		"out-circ",
 		function() self:die() end
 	)
-end
-
-function Ripple:update(dt)
-	Ripple.super.update(self, dt)
 end
 
 function Ripple:draw()
@@ -33,11 +29,6 @@ function Ripple:draw()
 	love.graphics.circle("line", self.x, self.y, self._radius)
 	love.graphics.setLineWidth(1)
 	love.graphics.setColor(colors.white)
-end
-
-function Ripple:die()
-	Ripple.super.die(self)
-	timer.cancel(self._tween)
 end
 
 return Ripple

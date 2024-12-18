@@ -20,6 +20,8 @@ function StarParticle:update(dt)
 	self._vy = math.min(self._vy + dt * 5, 5)
 	self.x = self.x + self._vx * dt * 60
 	self.y = self.y + self._vy * dt * 60
+
+	if self._elapsed > frame_time * 100 then self:die() end
 end
 
 function StarParticle:draw()

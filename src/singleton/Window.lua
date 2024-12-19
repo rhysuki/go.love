@@ -7,6 +7,7 @@ local Window = {
 	scale = 1,
 	width = 0,
 	height = 0,
+	-- Change screen_width and screen_height to change the resolution of the game.
 	screen_width = 256,
 	screen_height = 192,
 }

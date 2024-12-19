@@ -1,5 +1,6 @@
 local push = require("lib.push.push")
 local timer = require("lib.hump.timer")
+local colors = require("assets.data.collections.colors")
 local Window = require("src.singleton.Window")
 local Input = require("src.singleton.Input")
 local Node
@@ -10,6 +11,7 @@ local animations
 function love.load()
 	Window:setup(3)
 	love.window.setTitle("Project Skeleton")
+	push:setBorderColor(colors.b16_black)
 
 	Node = require("src.Node")
 	root = Node()

@@ -11,7 +11,6 @@ local SampleAnimation = Node:extend()
 
 function SampleAnimation:new()
 	SampleAnimation.super.new(self)
-	push:setBorderColor(colors.b16_black)
 
 	local star_circle = self:add_child(StarCircle())
 

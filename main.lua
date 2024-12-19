@@ -2,14 +2,18 @@ local push = require("lib.push.push")
 local timer = require("lib.hump.timer")
 local Window = require("src.singleton.Window")
 local Input = require("src.singleton.Input")
-local Node = require("src.Node")
+local Node
 local root
+local animations
+
 
 function love.load()
-	print("up'n'runnin")
 	Window:setup(3)
 	love.window.setTitle("Project Skeleton")
+
+	Node = require("src.Node")
 	root = Node()
+	animations = require("assets.data.collections.animations")
 
 	require("sample")(root)
 end
@@ -24,6 +28,7 @@ function love.update(dt)
 	if Input:pressed("debug_enable_debug_mode") then debug.debug() end
 
 	timer.update(dt)
+	animations:update(dt)
 	root:update(dt)
 end
 

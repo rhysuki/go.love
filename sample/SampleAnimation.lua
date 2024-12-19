@@ -13,7 +13,7 @@ function SampleAnimation:new()
 
 	local star_circle = self:add_child(StarCircle())
 
-	star_circle.animation_finished:subscribe(self, function()
+	star_circle.died:subscribe(self, function()
 		for i = 1, 5 do
 			local vx = love.math.random() * 6 - 3
 			local vy = love.math.random() * 6 - 3

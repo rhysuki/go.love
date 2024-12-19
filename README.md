@@ -30,6 +30,13 @@ Libraries for common operations. This repo includes submodules for:
 
 This is where static resources - data that doesn't change during the game - should go. Images, audio, fonts, but also things like Lua tables and Tiled maps.
 
+Included assets:
+
+* `data/collections/colors.lua` - A set of basic colors, plus this project's palette of choice, Bubblegum 16.
+* `data/collections/fonts.lua` - 3 basic pixel fonts for varying purposes.
+* `data/collections/images.lua` - Placeholder pixel graphics for different occasions, from [Kenney's Micro Roguelike pack](https://kenney.nl/assets/micro-roguelike), already loaded as LÖVE images.
+* `data/collections/animations.lua` - Animated `anim8` objects ready to use, mainly a player character.
+
 # Contributing
 Issues, pull requests and suggestions are welcome. You can poke me in the [LÖVE Discord server](https://discord.gg/rhUets9).
 

@@ -1,5 +1,5 @@
 local animations = require("assets.data.collections.animations")
-local help = require("sample.help")
+local help = require("demo.help")
 local Window = require("src.singleton.Window")
 local Node = require("src.Node")
 local Player = Node:extend()

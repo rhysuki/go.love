@@ -3,7 +3,7 @@ A lightweight project skeleton for [LÖVE](https://love2d.org/) games that takes
 
 # Usage
 
-To see the sample, run this repo as a LÖVE project. You can safely delete the entire `sample` folder - make sure to also delete the line `require("sample")(root)` in `main.lua`.
+To see the demo, run this repo as a LÖVE project. You can safely delete the entire `demo` folder - make sure to also delete the line `require("demo")(root)` in `main.lua`.
 
 ## /src/
 

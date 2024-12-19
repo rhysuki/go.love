@@ -15,7 +15,7 @@ function love.load()
 	root = Node()
 	animations = require("assets.data.collections.animations")
 
-	require("sample")(root)
+	require("demo")(root)
 end
 
 function love.update(dt)

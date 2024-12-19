@@ -6,7 +6,7 @@ local NewClass = Node:extend()
 function NewClass:new()
 	NewClass.super.new(self)
 
-	self._star = love.graphics.newImage("sample/assets/big_star.png")
+	self._star = love.graphics.newImage("demo/assets/big_star.png")
 	self._positions = {}
 end
 

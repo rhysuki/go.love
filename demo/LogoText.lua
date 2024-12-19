@@ -9,7 +9,7 @@ function LogoText:new(x, y)
 	self._progress = 0
 	self._pink = {unpack(colors.b16_pink)}
 	self._dark_pink = {unpack(colors.b16_dark_pink)}
-	self._star = love.graphics.newImage("sample/assets/small_star.png")
+	self._star = love.graphics.newImage("demo/assets/small_star.png")
 
 	timer.tween(0.5, self, {_progress = 1}, "out-back")
 end

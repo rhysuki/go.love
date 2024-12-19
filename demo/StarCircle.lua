@@ -1,8 +1,8 @@
 local timer = require("lib.hump.timer")
-local help = require("sample.help")
+local help = require("demo.help")
 local Window = require("src.singleton.Window")
 local Signal = require("src.Signal")
-local StarTrail = require("sample.StarTrail")
+local StarTrail = require("demo.StarTrail")
 local Node = require("src.Node")
 local StarCircle = Node:extend()
 
@@ -13,7 +13,7 @@ function StarCircle:new()
 	self._star_amount = 5
 	self._rotation = 0
 	self._star_trails = {}
-	self._star = love.graphics.newImage("sample/assets/star.png")
+	self._star = love.graphics.newImage("demo/assets/star.png")
 
 	self.x = Window.half_screen_width - 6
 	self.y = Window.half_screen_height - 3

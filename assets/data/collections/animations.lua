@@ -9,7 +9,7 @@ local player_grid = anim8.newGrid(16, 16, player_atlas:getWidth(), player_atlas:
 
 ---Draw this animation. All extra arguments, like position, size, offset, etc,
 ---are passed to this animation's `love.graphics.draw()`.
----@param ...any[]
+---@param ...any
 local function draw_animation(self, ...)
 	self.data:draw(self.atlas, ...)
 end
@@ -23,6 +23,7 @@ local function create_animation(atlas, frames, durations)
 end
 
 local animations = {
+	-- General-purpose and topdown-focused animations
 	player_idle_down = create_animation(player_atlas, player_grid("1-1", 1), 0.2),
 	player_idle_right = create_animation(player_atlas, player_grid("1-1", 2), 0.2),
 	player_idle_left = create_animation(player_atlas, player_grid("1-1", 3), 0.2),
@@ -33,6 +34,8 @@ local animations = {
 	player_walk_left = create_animation(player_atlas, player_grid("1-4", 3), 0.2),
 	player_walk_up = create_animation(player_atlas, player_grid("1-4", 4), 0.2),
 
+	-- Sidescrolling-focused animations. To flip them, flip the underlying object.
+	-- Example: `animations.player_run.data:flipH()`
 	player_run = create_animation(player_atlas, player_grid("1-4", 5), 0.1),
 	player_jump = create_animation(player_atlas, player_grid("1-1", 6), 0.1),
 	player_fall = create_animation(player_atlas, player_grid("1-1", 7), 0.1),

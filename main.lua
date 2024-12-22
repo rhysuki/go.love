@@ -3,6 +3,7 @@ local timer = require("lib.hump.timer")
 local colors = require("assets.data.collections.colors")
 local Window = require("src.singleton.Window")
 local Input = require("src.singleton.Input")
+local Debug = require("src.singleton.Debug")
 local Node
 local root
 local animations
@@ -22,20 +23,15 @@ end
 
 function love.update(dt)
 	Input:update()
-
-	if Input:pressed("debug_quit") then love.event.quit() end
-	if Input:pressed("debug_restart") then love.event.quit("restart") end
-	if Input:pressed("debug_increase_window_size") then Window:resize(Window.scale + 1) end
-	if Input:pressed("debug_decrease_window_size") then Window:resize(Window.scale - 1) end
-	if Input:pressed("debug_enable_debug_mode") then debug.debug() end
-
 	timer.update(dt)
 	animations:update(dt)
 	root:update(dt)
+	Debug:update(dt)
 end
 
 function love.draw()
 	push:start()
 	root:draw()
+	Debug:draw()
 	push:finish()
 end

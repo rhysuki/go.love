@@ -5,6 +5,12 @@ local Signal = require("src.Signal")
 local Node = require("src.Node")
 ---A Node wrapper around `bump`. A Hitbox's "collision layers" are the layers it
 ---exists in, and its "collision masks" are the layers it looks for when moving.
+---@class Hitbox : Node
+---@overload fun(
+---x: number, y: number,
+---width: number, height: number,
+---collision_layers: string[], collision_mask: string[],
+---is_area: boolean?): Hitbox
 local Hitbox = Node:extend()
 
 ---@param item table
@@ -16,13 +22,7 @@ local function filter(item, other)
 	return "slide"
 end
 
----@param x number
----@param y number
----@param width number
----@param height number
----@param collision_layers string[]
----@param collision_mask string[]
-function Hitbox:new(x, y, width, height, collision_layers, collision_mask)
+function Hitbox:new(x, y, width, height, collision_layers, collision_mask, is_area)
 	Hitbox.super.new(self, x, y)
 
 	-- Fires when this Hitbox first collides with another. Gets passed the collided
@@ -37,7 +37,7 @@ function Hitbox:new(x, y, width, height, collision_layers, collision_mask)
 
 	-- If `true`, this Hitbox will generate collision events (entered, exit) but
 	-- won't physically collide with anything.
-	self.is_area = false
+	self.is_area = is_area or false
 	-- The width of this Hitbox. Updating this won't change the collision detection,
 	-- use `set_dimensions()` for that.
 	self.width = width

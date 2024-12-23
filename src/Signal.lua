@@ -2,6 +2,9 @@ local async = require("lib.batteries.async")
 local Class = require("lib.classic.classic")
 ---Represents an emittable event that objects can subscribe to. This implements the
 ---Observer pattern.
+---@class Signal
+---@field extend function
+---@overload fun(): Signal
 local Signal = Class:extend()
 
 function Signal:new()

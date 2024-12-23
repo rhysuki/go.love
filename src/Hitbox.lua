@@ -1,16 +1,13 @@
 local moses = require("lib.moses.moses")
 local bump = require("lib.bump.bump")
 local colors = require("assets.data.collections.colors")
+local Debug = require("src.singleton.Debug")
 local Signal = require("src.Signal")
 local Node = require("src.Node")
 ---A Node wrapper around `bump`. A Hitbox's "collision layers" are the layers it
 ---exists in, and its "collision masks" are the layers it looks for when moving.
 ---@class Hitbox : Node
----@overload fun(
----x: number, y: number,
----width: number, height: number,
----collision_layers: string[], collision_mask: string[],
----is_area: boolean?): Hitbox
+---@overload fun(x: number, y: number, width: number, height: number, collision_layers: string[], collision_mask: string[], is_area: boolean?): Hitbox
 local Hitbox = Node:extend()
 
 ---@param item table
@@ -50,6 +47,10 @@ function Hitbox:new(x, y, width, height, collision_layers, collision_mask, is_ar
 	-- A table of strings representing which layers this Hitbox checks for when
 	-- colliding.
 	self.collision_mask = collision_mask
+	-- The color used for drawing this hitbox, when `Debug.is_enabled` and
+	-- `Debug.draw_hiboxes` are both `true`.
+	-- Defaults to cyan for regular Hitboxes and yellow for area Hitboxes.
+	self.debug_color = self.is_area and {unpack(colors.yellow)} or {unpack(colors.cyan)}
 	self.world = _G.TEST_WORLD
 
 	-- Tables to keep track of the objects this Hitbox collided with between frames,
@@ -61,6 +62,7 @@ function Hitbox:new(x, y, width, height, collision_layers, collision_mask, is_ar
 	self._previous_cols = {}
 
 	self.world:add(self, self.x, self.y, self.width, self.height)
+	self.debug_color[4] = 0.75
 end
 
 function Hitbox:update(dt)
@@ -70,9 +72,11 @@ end
 function Hitbox:draw()
 	Hitbox.super.draw(self)
 
-	love.graphics.setColor(colors.b16_green)
-	love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
-	love.graphics.setColor(colors.white)
+	if Debug.is_enabled and Debug.draw_hitboxes then
+		love.graphics.setColor(self.debug_color)
+		love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+		love.graphics.setColor(colors.white)
+	end
 end
 
 function Hitbox:die()

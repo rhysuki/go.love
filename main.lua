@@ -1,5 +1,6 @@
 local push = require("lib.push.push")
 local timer = require("lib.hump.timer")
+local log = require("lib.log.log")
 local colors = require("assets.data.collections.colors")
 local Window = require("src.singleton.Window")
 local Input = require("src.singleton.Input")
@@ -20,6 +21,7 @@ function love.load()
 
 	require("globals")
 	require("demo")(root)
+	log.info("Finished loading")
 end
 
 function love.update(dt)

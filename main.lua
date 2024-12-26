@@ -18,6 +18,7 @@ function love.load()
 	root = Node()
 	animations = require("assets.data.collections.animations")
 
+	require("globals")
 	require("demo")(root)
 end
 

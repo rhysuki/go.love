@@ -1,17 +1,14 @@
-local timer = require("lib.hump.timer")
-local colors = require("assets.data.collections.colors")
-local Node = require("src.Node")
-local LogoText = Node:extend()
+local LogoText = NODE:extend()
 
 function LogoText:new(x, y)
 	LogoText.super.new(self, x, y)
 
 	self._progress = 0
-	self._pink = {unpack(colors.b16_pink)}
-	self._dark_pink = {unpack(colors.b16_dark_pink)}
+	self._pink = {unpack(COLORS.b16_pink)}
+	self._dark_pink = {unpack(COLORS.b16_dark_pink)}
 	self._star = love.graphics.newImage("demo/assets/small_star.png")
 
-	timer.tween(0.5, self, {_progress = 1}, "out-back")
+	LIB.timer.tween(0.5, self, {_progress = 1}, "out-back")
 end
 
 function LogoText:update(dt)
@@ -37,9 +34,9 @@ function LogoText:draw()
 		"center"
 	)
 
-	love.graphics.setColor(colors.b16_pink)
+	love.graphics.setColor(COLORS.b16_pink)
 	love.graphics.print("rhysuki", self.x + self._progress * 4, self.y)
-	love.graphics.setColor(colors.white)
+	love.graphics.setColor(COLORS.white)
 end
 
 return LogoText

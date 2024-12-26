@@ -1,10 +1,6 @@
-local timer = require("lib.hump.timer")
 local help = require("demo.help")
-local Window = require("src.singleton.Window")
-local Signal = require("src.Signal")
 local StarTrail = require("demo.StarTrail")
-local Node = require("src.Node")
-local StarCircle = Node:extend()
+local StarCircle = NODE:extend()
 
 function StarCircle:new()
 	StarCircle.super.new(self)
@@ -15,19 +11,19 @@ function StarCircle:new()
 	self._star_trails = {}
 	self._star = love.graphics.newImage("demo/assets/star.png")
 
-	self.x = Window.half_screen_width - 6
-	self.y = Window.half_screen_height - 3
+	self.x = WINDOW.half_screen_width - 6
+	self.y = WINDOW.half_screen_height - 3
 
 	for i = 1, self._star_amount do
 		table.insert(self._star_trails, self:add_child(StarTrail()))
 	end
 
-	timer.tween(
+	LIB.timer.tween(
 		1.5,
 		self,
 		{_rotation = 300, _radius = 0},
 		"in-sine",
-		function() timer.after(0.05, function() self:die() end) end
+		function() LIB.timer.after(0.05, function() self:die() end) end
 	)
 
 	help.sounds.twinkle:play()

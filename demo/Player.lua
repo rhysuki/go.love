@@ -1,14 +1,11 @@
-local animations = require("assets.data.collections.animations")
 local help = require("demo.help")
-local Window = require("src.singleton.Window")
-local Node = require("src.Node")
-local Player = Node:extend()
+local Player = NODE:extend()
 
 function Player:new()
 	Player.super.new(self)
-	self._animation = animations.player_run
+	self._animation = ANIMATIONS.player_run
 	self.x = -18
-	self.y = Window.screen_height - 16
+	self.y = WINDOW.screen_height - 16
 
 	self._has_jumped = false
 	self._vy = 0
@@ -20,9 +17,9 @@ function Player:update(dt)
 	self.x = self.x + dt * 60 * 2
 	self.y = self.y + self._vy
 
-	if self.x > Window.screen_width * 0.5 and not self._has_jumped then
+	if self.x > WINDOW.screen_width * 0.5 and not self._has_jumped then
 		self._vy = -3.5
-		self._animation = animations.player_jump
+		self._animation = ANIMATIONS.player_jump
 		self._has_jumped = true
 		help.sounds.jump:play()
 	end

@@ -1,7 +1,4 @@
-local colors = require("assets.data.collections.colors")
-local Node = require("src.Node")
-local Window = require("src.singleton.Window")
-local NewClass = Node:extend()
+local NewClass = NODE:extend()
 
 function NewClass:new()
 	NewClass.super.new(self)
@@ -25,20 +22,20 @@ function NewClass:draw()
 		local color
 
 		if i > 8 then
-			color = colors.b16_pink
+			color = COLORS.b16_pink
 		elseif i > 6 then
-			color = colors.b16_dark_pink
+			color = COLORS.b16_dark_pink
 		elseif i > 4 then
-			color = colors.b16_purple
+			color = COLORS.b16_purple
 		else
-			color = colors.transparent
+			color = COLORS.transparent
 		end
 
 		love.graphics.setColor(color)
 		love.graphics.draw(self._star, x - 8, y - 8)
 	end
 
-	love.graphics.setColor(colors.white)
+	love.graphics.setColor(COLORS.white)
 end
 
 return NewClass

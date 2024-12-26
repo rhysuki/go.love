@@ -2,6 +2,29 @@ local async = require("lib.batteries.async")
 local Class = require("lib.classic.classic")
 ---Represents an emittable event that objects can subscribe to. This implements the
 ---Observer pattern.
+---
+---By making Signals for important events, then tying them to functions, objects
+---can communicate without being coupled together; they don't have to depend on
+---(or even know about!) each other. This frees them to be as general-purpose as
+---they want.
+---
+---Signals are useful when you say "I'd like anything to be able to respond to this
+---situation in their own way."
+---
+---For example: When a `Player` takes damage, it can emit an `on_damage_taken` Signal.
+---Then, a `HealthBar`  could connect its `update_progress()` function, and a
+---`Counter` could connect its `increment()` function, both to that same Signal.
+---
+---The end result is that the health bar updates and the counter increments when
+---the player takes damage, and neither the health bar, the counter, nor the player,
+---had to know about each other to work together.
+---
+---You could then connect a `ParticleGenerator` to `Player.on_damage_taken` to spawn
+---blood effects, or connect a `Counter` to a `FileLoader.on_file_loaded` to keep
+---track of file progress, all without having to write special-purpose code to
+---explicitly tie those specific classes together.
+---
+---Nifty!
 ---@class Signal
 ---@field extend function
 ---@overload fun(): Signal

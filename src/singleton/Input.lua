@@ -1,6 +1,11 @@
 local baton = require("lib.baton.baton")
 
 ---An instance of baton with some common defaults for easy prototyping.
+---
+---For example: To check whether the left mouse button just got pressed, do
+---`if input:pressed("confirm") then ...`.
+---
+---Actions:
 ---Left/right/up/down (movement): Arrow keys, WASD, IJKL and left gamepad stick
 ---Confirm/cancel/menu (actions): Z/X/C, N/M/,, A/B/Start, left/right click
 ---Control modifier: Shift keys, gamepad shoulder buttons

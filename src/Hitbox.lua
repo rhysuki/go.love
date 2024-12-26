@@ -5,10 +5,14 @@ local Debug = require("src.singleton.Debug")
 local Signal = require("src.Signal")
 local Node = require("src.Node")
 ---A Node wrapper around `bump`. A Hitbox's "collision layers" are the layers it
----exists in, and its "collision masks" are the layers it looks for when moving.
+---exists in, and its "collision masks" are the layers it looks for when checking
+---for collisions.
 ---@class Hitbox : Node
 ---@overload fun(x: number, y: number, width: number, height: number, collision_layers: string[], collision_mask: string[], is_area: boolean?): Hitbox
 local Hitbox = Node:extend()
+
+-- The physics world shared by all Hitboxes.
+local world = bump.newWorld()
 
 ---@param item table
 ---@param other table
@@ -33,7 +37,7 @@ function Hitbox:new(x, y, width, height, collision_layers, collision_mask, is_ar
 	self.on_hitbox_exited = Signal()
 
 	-- If `true`, this Hitbox will generate collision events (entered, exit) but
-	-- won't physically collide with anything.
+	-- won't physically stop anything. Other Hitboxes will phase through it.
 	self.is_area = is_area or false
 	-- The width of this Hitbox. Updating this won't change the collision detection,
 	-- use `set_dimensions()` for that.
@@ -51,7 +55,7 @@ function Hitbox:new(x, y, width, height, collision_layers, collision_mask, is_ar
 	-- `Debug.draw_hiboxes` are both `true`.
 	-- Defaults to cyan for regular Hitboxes and yellow for area Hitboxes.
 	self.debug_color = self.is_area and {unpack(colors.yellow)} or {unpack(colors.cyan)}
-	self.world = _G.TEST_WORLD
+	self.world = world
 
 	-- Tables to keep track of the objects this Hitbox collided with between frames,
 	-- to know when to call `on_hitbox_entered` and `on_hitbox_exited`.

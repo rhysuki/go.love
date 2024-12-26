@@ -18,6 +18,7 @@ LIB = {
 	bump = require("lib.bump.bump"),
 	classic = require("lib.classic.classic"),
 	timer = require("lib.hump.timer"),
+	log = require("lib.log.log"),
 	moses = require("lib.moses.moses"),
 	push = require("lib.push.push")
 }
@@ -28,3 +29,5 @@ COLORS = require("assets.data.collections.colors")
 FONTS = require("assets.data.collections.fonts")
 IMAGES = require("assets.data.collections.images")
 SOUNDS = require("assets.data.collections.sounds")
+
+LIB.log.trace("Loaded globals")

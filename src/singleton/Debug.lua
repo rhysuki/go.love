@@ -6,11 +6,13 @@ local Window = require("src.singleton.Window")
 ---`updated` and `drawn` Signals, you can add debug utilities that are easily
 ---enabled or disabled.
 local Debug = {
+	-- Semver of this project base
+	version = "1.1.0",
 	is_enabled = true,
 	draw_hitboxes = true,
 	are_debug_keys_enabled = true,
 	updated = Signal(),
-	drawn = Signal()
+	drawn = Signal(),
 }
 
 function Debug:update(dt)

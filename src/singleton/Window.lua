@@ -7,7 +7,7 @@ local Window = {
 	scale = 1,
 	width = 0,
 	height = 0,
-	-- Change screen_width and screen_height to change the resolution of the game.
+	-- Change these two fields to change the base resolution of the game.
 	screen_width = 256,
 	screen_height = 192,
 }
@@ -39,6 +39,7 @@ function Window:setup(scale)
 	love.graphics.setFont(require("assets.data.collections.fonts").small)
 end
 
+---Change the window's size to an integer scale multiple of the base resolution.
 ---@param n integer
 function Window:resize(n)
 	if n < 1 then n = 1 end

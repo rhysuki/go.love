@@ -2,15 +2,15 @@ local Node = require("src.Node")
 local NewClass = Node:extend()
 
 function NewClass:new()
-	NewClass.super.new(self)
+	self.super.new(self)
 end
 
 function NewClass:update(dt)
-	NewClass.super.update(self, dt)
+	self.super.update(self, dt)
 end
 
 function NewClass:draw()
-	NewClass.super.draw(self)
+	self.super.draw(self)
 end
 
 return NewClass

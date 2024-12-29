@@ -5,7 +5,11 @@ local Class = require("lib.classic.classic")
 ---It can store children nodes that are automatically updated and drawn, forming
 ---a tree.
 ---
---There's always 1 main "root" node at the top of the project.
+---There's always 1 main "root" node at the top of the project.
+---@class Node
+---@field super table
+---@field extend function
+---@overload fun(x: number?, y: number?): Node
 local Node = Class:extend()
 
 ---@param x number?
@@ -18,11 +22,11 @@ function Node:new(x, y)
 	-- The Node this is a child of, if any. This gets set on the parent's
 	-- `add_child()` call.
 	self.parent = nil
-	-- If this is `false`, this Node won't update (but still might be drawn).
+	-- If `false`, this Node won't update (but still might be drawn).
 	self.is_active = true
-	-- If this is `false`, this Node won't be drawn (but still might update).
+	-- If `false`, this Node won't be drawn (but still might update).
 	self.is_visible = true
-	-- If this is `false`, this Node doesn't update or draw, and will be removed
+	-- If `false`, this Node doesn't update or draw, and will be removed
 	-- from the game in the next update cycle. Usually, you want to set this with
 	-- `die()` instead of doing it manually.
 	self.is_alive = true
@@ -65,11 +69,16 @@ function Node:draw()
 	end
 end
 
----@param node table
----@return table
+---@generic T: Node
+---@param node T
+---@return T
 function Node:add_child(node)
 	table.insert(self._CHILDREN, node)
+	-- Getting weird warnings when accessing fields from generics. This was the
+	-- best workaround I found that preserves autocompletion.
+	---@diagnostic disable-next-line
 	node.parent = self
+	---@diagnostic disable-next-line
 	node:_ready()
 	return node
 end

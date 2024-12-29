@@ -19,3 +19,9 @@
 [submodule "lib/anim8"]
 	path = lib/anim8
 	url = https://github.com/kikito/anim8
+[submodule "lib/bump"]
+	path = lib/bump
+	url = https://github.com/kikito/bump.lua
+[submodule "lib/log"]
+	path = lib/log
+	url = https://github.com/rxi/log.lua

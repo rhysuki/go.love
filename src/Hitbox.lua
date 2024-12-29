@@ -27,7 +27,7 @@ local function filter(item, other)
 end
 
 function Hitbox:new(x, y, width, height, collision_layers, collision_mask, is_area)
-	self.super.new(self, x, y)
+	Hitbox.super.new(self, x, y)
 
 	-- Fires when this Hitbox first collides with another. Gets passed the collided
 	-- Hitbox.
@@ -91,7 +91,7 @@ function Hitbox:new(x, y, width, height, collision_layers, collision_mask, is_ar
 end
 
 function Hitbox:update(dt)
-	self.super.update(self, dt)
+	Hitbox.super.update(self, dt)
 
 	if self.is_auto_update_enabled then
 		self:move_and_collide()
@@ -99,7 +99,7 @@ function Hitbox:update(dt)
 end
 
 function Hitbox:draw()
-	self.super.draw(self)
+	Hitbox.super.draw(self)
 
 	if Debug.is_enabled and Debug.draw_hitboxes then
 		love.graphics.setColor(self.debug_color)
@@ -109,7 +109,7 @@ function Hitbox:draw()
 end
 
 function Hitbox:die()
-	self.super.die(self)
+	Hitbox.super.die(self)
 	self._world:remove(self)
 end
 

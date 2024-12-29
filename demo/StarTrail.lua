@@ -1,21 +1,21 @@
 local StarTrail = NODE:extend()
 
 function StarTrail:new()
-	self.super.new(self)
+	StarTrail.super.new(self)
 
 	self._star = love.graphics.newImage("demo/assets/big_star.png")
 	self._positions = {}
 end
 
 function StarTrail:update(dt)
-	self.super.update(self, dt)
+	StarTrail.super.update(self, dt)
 
 	table.insert(self._positions, {self.x, self.y})
 	if #self._positions >= 10 then table.remove(self._positions, 1) end
 end
 
 function StarTrail:draw()
-	self.super.draw(self)
+	StarTrail.super.draw(self)
 
 	for i = 1, #self._positions do
 		local x, y = self._positions[i][1], self._positions[i][2]

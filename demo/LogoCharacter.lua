@@ -1,7 +1,7 @@
 local LogoCharacter = NODE:extend()
 
 function LogoCharacter:new(x, y, char, delay)
-	self.super.new(self, x, y)
+	LogoCharacter.super.new(self, x, y)
 	self._progress = 0
 	self._char = char
 
@@ -18,7 +18,7 @@ end
 function LogoCharacter:draw()
 	local color = COLORS.b16_pink
 
-	self.super.draw(self)
+	LogoCharacter.super.draw(self)
 
 	if self._progress < 0.2 or self._progress > 1.08 then
 		color = COLORS.b16_white

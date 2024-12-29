@@ -1,7 +1,7 @@
 local Ripple = NODE:extend()
 
 function Ripple:new(x, y)
-	self.super.new(self, x, y)
+	Ripple.super.new(self, x, y)
 	self._radius = 0
 	self._line_width = 8
 	self._tween = LIB.timer.tween(
@@ -14,7 +14,7 @@ function Ripple:new(x, y)
 end
 
 function Ripple:draw()
-	self.super.draw(self)
+	Ripple.super.draw(self)
 
 	if self._radius < 10 then
 		love.graphics.setColor(COLORS.b16_white)

@@ -1,7 +1,7 @@
 local LogoText = NODE:extend()
 
 function LogoText:new(x, y)
-	self.super.new(self, x, y)
+	LogoText.super.new(self, x, y)
 
 	self._progress = 0
 	self._pink = {unpack(COLORS.b16_pink)}
@@ -12,7 +12,7 @@ function LogoText:new(x, y)
 end
 
 function LogoText:update(dt)
-	self.super.update(self, dt)
+	LogoText.super.update(self, dt)
 
 	-- Update alpha
 	self._pink[4] = self._progress
@@ -20,7 +20,7 @@ function LogoText:update(dt)
 end
 
 function LogoText:draw()
-	self.super.draw(self)
+	LogoText.super.draw(self)
 
 	love.graphics.setColor(self._pink)
 	love.graphics.draw(self._star, self.x + 7 - self._progress * 13, self.y + 6)

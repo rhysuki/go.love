@@ -2,7 +2,7 @@ local StarParticle = NODE:extend()
 local frame_time = 0.016666
 
 function StarParticle:new(x, y, velocity_x, velocity_y)
-	self.super.new(self, x, y)
+	StarParticle.super.new(self, x, y)
 	self._elapsed = 0
 	self._vx = velocity_x or 0
 	self._vy = velocity_y or 0
@@ -10,7 +10,7 @@ function StarParticle:new(x, y, velocity_x, velocity_y)
 end
 
 function StarParticle:update(dt)
-	self.super.update(self, dt)
+	StarParticle.super.update(self, dt)
 
 	self._elapsed = self._elapsed + dt
 	self._vx = LIB.batteries.mathx.lerp(self._vx, 0, 0.02)
@@ -25,7 +25,7 @@ function StarParticle:draw()
 	local scale = LIB.batteries.mathx.clamp01((frame_time * 80 - self._elapsed) / (frame_time * 60))
 	local color
 
-	self.super.draw(self)
+	StarParticle.super.draw(self)
 
 	if self._elapsed < frame_time * 5 then
 		color = COLORS.b16_white

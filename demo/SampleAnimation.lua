@@ -5,7 +5,7 @@ local Player = require("demo.Player")
 local SampleAnimation = NODE:extend()
 
 function SampleAnimation:new()
-	self.super.new(self)
+	SampleAnimation.super.new(self)
 
 	local star_circle = self:add_child(StarCircle())
 

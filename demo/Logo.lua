@@ -6,7 +6,7 @@ local StarParticleCurtain = require("demo.StarParticleCurtain")
 local Logo = NODE:extend()
 
 function Logo:new(x, y)
-	self.super.new(self, x, y)
+	Logo.super.new(self, x, y)
 
 	local logo_characters = self:add_child(NODE())
 	local letters = {"r", "h", "y", "s", "u", "k", "i"}

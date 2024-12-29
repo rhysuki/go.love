@@ -3,7 +3,7 @@ local StarTrail = require("demo.StarTrail")
 local StarCircle = NODE:extend()
 
 function StarCircle:new()
-	StarCircle.super.new(self)
+	self.super.new(self)
 
 	self._radius = 170
 	self._star_amount = 5
@@ -30,11 +30,11 @@ function StarCircle:new()
 end
 
 function StarCircle:update(dt)
-	StarCircle.super.update(self, dt)
+	self.super.update(self, dt)
 end
 
 function StarCircle:draw()
-	StarCircle.super.draw(self)
+	self.super.draw(self)
 
 	for i = 1, self._star_amount do
 		local angle = math.rad(((360 / self._star_amount) * (i - 1)) + self._rotation)

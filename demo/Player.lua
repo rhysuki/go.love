@@ -2,7 +2,7 @@ local help = require("demo.help")
 local Player = NODE:extend()
 
 function Player:new()
-	Player.super.new(self)
+	self.super.new(self)
 	self._animation = ANIMATIONS.player_run
 	self.x = -18
 	self.y = WINDOW.screen_height - 16
@@ -12,7 +12,7 @@ function Player:new()
 end
 
 function Player:update(dt)
-	Player.super.update(self, dt)
+	self.super.update(self, dt)
 
 	self.x = self.x + dt * 60 * 2
 	self.y = self.y + self._vy
@@ -30,7 +30,7 @@ function Player:update(dt)
 end
 
 function Player:draw()
-	Player.super.draw(self)
+	self.super.draw(self)
 	self._animation:draw(self.x, self.y)
 end
 

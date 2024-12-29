@@ -2,7 +2,7 @@ local StarParticle = require("demo.StarParticle")
 local StarParticleCurtain = NODE:extend()
 
 function StarParticleCurtain:new()
-	StarParticleCurtain.super.new(self)
+	self.super.new(self)
 
 	for i = 0, 15 do
 		LIB.timer.after(i / 30, function()

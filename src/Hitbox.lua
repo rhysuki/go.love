@@ -76,6 +76,7 @@ function Hitbox:new(x, y, width, height, collision_layers, collision_mask, is_ar
 	-- `Debug.draw_hiboxes` are both `true`.
 	-- Defaults to cyan for regular Hitboxes and yellow for area Hitboxes.
 	self.debug_color = self.is_area and {unpack(colors.yellow)} or {unpack(colors.cyan)}
+	self.debug_draw_mode = "fill"
 
 	-- Tables to keep track of the objects this Hitbox collided with between frames,
 	-- to know when to call `on_hitbox_entered` and `on_hitbox_exited`.
@@ -103,7 +104,7 @@ function Hitbox:draw()
 
 	if Debug.is_enabled and Debug.draw_hitboxes then
 		love.graphics.setColor(self.debug_color)
-		love.graphics.rectangle("fill", self._world:getRect(self))
+		love.graphics.rectangle(self.debug_draw_mode, self._world:getRect(self))
 		love.graphics.setColor(colors.white)
 	end
 end

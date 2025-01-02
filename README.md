@@ -44,6 +44,7 @@ Libraries for common operations. Submodules are included for:
 * [bump](https://github.com/kikito/bump.lua) - Collision detection and resolution for axis-aligned bounding boxes (AABBs).
 * [classic](https://github.com/rxi/classic) - Tiny, battle-tested class module for object orientation.
 * [hump](https://github.com/vrld/hump) - General-purpose utilities for LÖVE. This template mostly uses it for its timing and tweening functions.
+* [inspect](https://github.com/kikito/inspect.lua) - Renders tables in a human-readable way.
 * [log.lua](https://github.com/rxi/log.lua) - A tiny logging module.
 * [moses](https://github.com/Yonaba/Moses) - An "utility belt" for functional programming; makes it much easier to operate upon tables.
 * [push](https://github.com/Ulydev/push) - Easy window resolution handling.

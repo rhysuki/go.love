@@ -25,3 +25,6 @@
 [submodule "lib/log"]
 	path = lib/log
 	url = https://github.com/rxi/log.lua
+[submodule "lib/inspect"]
+	path = lib/inspect
+	url = https://github.com/kikito/inspect.lua

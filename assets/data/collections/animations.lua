@@ -52,6 +52,9 @@ local animations = {
 	player_fall = create_animation(player_atlas, player_grid("1-1", 11), 0.1),
 	player_crouch = create_animation(player_atlas, player_grid("1-1", 12), 0.1),
 	player_item = create_animation(player_atlas, player_grid("1-1", 13), 0.1),
+
+	player_victory = create_animation(player_atlas, player_grid("1-14", 14), 0.05),
+	player_victory_pose = create_animation(player_atlas, player_grid("1-1", 15), 0.05),
 }
 
 ---Update every registered animation. Should be called only once per frame.

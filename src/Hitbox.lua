@@ -76,7 +76,7 @@ function Hitbox:new(x, y, width, height, collision_layers, collision_mask, is_ar
 	-- `Debug.draw_hiboxes` are both `true`.
 	-- Defaults to cyan for regular Hitboxes and yellow for area Hitboxes.
 	self.debug_color = self.is_area and {unpack(colors.yellow)} or {unpack(colors.cyan)}
-	self.debug_draw_mode = "fill"
+	self.debug_draw_mode = "line"
 
 	-- Tables to keep track of the objects this Hitbox collided with between frames,
 	-- to know when to call `on_hitbox_entered` and `on_hitbox_exited`.
@@ -154,11 +154,17 @@ function Hitbox:move_and_collide()
 
 		if not self._previous_cols[col.other] then
 			self.on_hitbox_entered:emit(col.other, col)
-			col.other.on_hitbox_entered:emit(self, col)
+
+			if col.other:can_collide_with(self) then
+				col.other.on_hitbox_entered:emit(self, col)
+			end
 		end
 
 		self.on_hitbox_stay:emit(col.other, col)
-		col.other.on_hitbox_stay:emit(self, col)
+
+		if col.other:can_collide_with(self) then
+			col.other.on_hitbox_stay:emit(self, col)
+		end
 
 		-- Reset vx and vy accordingly, update is_grounded
 		if col.normal.x ~= 0 then
@@ -178,7 +184,10 @@ function Hitbox:move_and_collide()
 		if not self._cols[col] then
 			local other = self._previous_cols[col].other
 			self.on_hitbox_exited:emit(other, col)
-			other.on_hitbox_exited:emit(self, col)
+
+			if other:can_collide_with(self) then
+				other.on_hitbox_exited:emit(self, col)
+			end
 		end
 	end
 end

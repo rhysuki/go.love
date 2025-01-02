@@ -26,6 +26,7 @@ return {
 	key = load("key"),
 
 	-- Overworld objects
+	box = load("box"),
 	chest = load("chest"),
 	flag = load("flag"),
 	sign = load("sign"),

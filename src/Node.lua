@@ -31,6 +31,14 @@ function Node:new(x, y)
 	-- from the game in the next update cycle. Usually, you want to set this with
 	-- `die()` instead of doing it manually.
 	self.is_alive = true
+	-- Quick & simple way to give a Node a graphic. Set this to an Image (from
+	-- IMAGES, for example) to draw it at `self.x + self.image_offset_x, self.y +
+	-- self.image_offset_y`. Set it to `nil` to disable.
+	self.image = nil
+	-- The amount, in pixels, to add to `self.image`'s `x` position when drawing.
+	self.image_offset_x = 0
+	-- The amount, in pixels, to add to `self.image`'s `y` position when drawing.
+	self.image_offset_y = 0
 
 	-- Fires when this Node dies.
 	self.died = Signal()
@@ -61,6 +69,14 @@ function Node:update(dt)
 end
 
 function Node:draw()
+	if self.image then
+		love.graphics.draw(
+			self.image,
+			self.x + self.image_offset_x,
+			self.y + self.image_offset_y
+		)
+	end
+
 	for i = 1, #self._CHILDREN do
 		local child = self._CHILDREN[i]
 

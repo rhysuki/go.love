@@ -11,7 +11,12 @@ local player_grid = anim8.newGrid(16, 16, player_atlas:getWidth(), player_atlas:
 ---are passed to this animation's `love.graphics.draw()`.
 ---@param ...any
 local function draw_animation(self, ...)
-	self.data:draw(self.atlas, ...)
+	-- Round positions when drawing, because animations offset by exactly 0.5
+	-- pixels look wonky
+	local x = math.floor(select(1, ...) + 0.5)
+	local y = math.floor(select(2, ...) + 0.5)
+
+	self.data:draw(self.atlas, x, y, select(3, ...))
 end
 
 local function create_animation(atlas, frames, durations)

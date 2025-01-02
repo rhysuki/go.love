@@ -9,6 +9,7 @@ local Class = require("lib.classic.classic")
 ---@class Node
 ---@field super table
 ---@field extend function
+---@field is function
 ---@overload fun(x: number?, y: number?): Node
 local Node = Class:extend()
 

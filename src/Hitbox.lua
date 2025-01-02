@@ -30,13 +30,13 @@ function Hitbox:new(x, y, width, height, collision_layers, collision_mask, is_ar
 	Hitbox.super.new(self, x, y)
 
 	-- Fires when this Hitbox first collides with another. Gets passed the collided
-	-- Hitbox.
+	-- Hitbox and a table with information about the collision.
 	self.on_hitbox_entered = Signal()
 	-- Fires every frame this Hitbox is colliding with another. Gets passed the
-	-- collided Hitbox.
+	-- collided Hitbox and a table with information about the collision.
 	self.on_hitbox_stay = Signal()
 	-- Fires when this Hitbox stops colliding with another. Gets passed the collided
-	-- Hitbox.
+	-- Hitbox and a table with information about the collision.
 	self.on_hitbox_exited = Signal()
 
 	-- If `true`, this Hitbox will generate collision events (entered, exit) but
@@ -147,15 +147,18 @@ function Hitbox:move_and_collide()
 	self._previous_cols = self._cols
 	self._cols = {}
 
+
 	-- Update col tables, fire signals
 	for _, col in ipairs(self.collisions) do
-		self._cols[col.other] = true
+		self._cols[col.other] = col
 
 		if not self._previous_cols[col.other] then
-			self.on_hitbox_entered:emit(col.other)
+			self.on_hitbox_entered:emit(col.other, col)
+			col.other.on_hitbox_entered:emit(self, col)
 		end
 
-		self.on_hitbox_stay:emit(col.other)
+		self.on_hitbox_stay:emit(col.other, col)
+		col.other.on_hitbox_stay:emit(self, col)
 
 		-- Reset vx and vy accordingly, update is_grounded
 		if col.normal.x ~= 0 then
@@ -166,14 +169,16 @@ function Hitbox:move_and_collide()
 			self.vy = 0
 		end
 
-		if col.normal.x == 0 and col.normal.y == -1 then
+		if col.normal.y == -1 then
 			self.is_grounded = true
 		end
 	end
 
 	for col in pairs(self._previous_cols) do
 		if not self._cols[col] then
-			self.on_hitbox_exited:emit(col)
+			local other = self._previous_cols[col].other
+			self.on_hitbox_exited:emit(other, col)
+			other.on_hitbox_exited:emit(self, col)
 		end
 	end
 end

@@ -34,14 +34,19 @@ local animations = {
 	player_walk_left = create_animation(player_atlas, player_grid("1-4", 3), 0.2),
 	player_walk_up = create_animation(player_atlas, player_grid("1-4", 4), 0.2),
 
+	player_push_down = create_animation(player_atlas, player_grid("1-4", 5), 0.2),
+	player_push_right = create_animation(player_atlas, player_grid("1-4", 6), 0.2),
+	player_push_left = create_animation(player_atlas, player_grid("1-4", 7), 0.2),
+	player_push_up = create_animation(player_atlas, player_grid("1-4", 8), 0.2),
+
 	-- Sidescrolling-focused animations. To flip them, flip the underlying object.
 	-- Example: `animations.player_run.data:flipH()`
-	player_idle = create_animation(player_atlas, player_grid("2-2", 2), 0.1),
-	player_run = create_animation(player_atlas, player_grid("1-4", 5), 0.1),
-	player_jump = create_animation(player_atlas, player_grid("1-1", 6), 0.1),
-	player_fall = create_animation(player_atlas, player_grid("1-1", 7), 0.1),
-	player_crouch = create_animation(player_atlas, player_grid("1-1", 8), 0.1),
-	player_item = create_animation(player_atlas, player_grid("1-1", 9), 0.1),
+	player_idle = create_animation(player_atlas, player_grid("2-2", 9), 0.1),
+	player_run = create_animation(player_atlas, player_grid("1-4", 9), 0.1),
+	player_jump = create_animation(player_atlas, player_grid("1-1", 10), 0.1),
+	player_fall = create_animation(player_atlas, player_grid("1-1", 11), 0.1),
+	player_crouch = create_animation(player_atlas, player_grid("1-1", 12), 0.1),
+	player_item = create_animation(player_atlas, player_grid("1-1", 13), 0.1),
 }
 
 ---Update every registered animation. Should be called only once per frame.

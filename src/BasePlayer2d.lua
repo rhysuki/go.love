@@ -1,4 +1,9 @@
 local Hitbox = require("src.Hitbox")
+---A barebones player character to extend from or drop into your game for instant
+---interactivity.
+---
+---Moves side-to-side and jumps like in a side-scrolling platformer.
+---See also BasePlayerTopDown.
 ---@class BasePlayer2d: Hitbox
 ---@overload fun(x: number?, y:number?): BasePlayer2d
 local BasePlayer2d = Hitbox:extend()

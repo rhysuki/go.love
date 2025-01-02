@@ -1,5 +1,11 @@
 local Hitbox = require("src.Hitbox")
+---A barebones player character to extend from or drop into your game for instant
+---interactivity.
+---
+---Moves freely in all directions like in a top-down RPG.
+---See also BasePlayer2d.
 ---@class BasePlayerTopDown: Hitbox
+---@overload fun(x: number?, y: number?): BasePlayerTopDown
 local BasePlayerTopDown = Hitbox:extend()
 
 function BasePlayerTopDown:new(x, y)
@@ -23,6 +29,11 @@ function BasePlayerTopDown:update(dt)
 	-- Update animations
 	local state = (move_x == 0 and move_y == 0) and "idle" or "walk"
 	local previous_animation = self._animation
+
+	-- Play push animation, but only when colliding and not holding a diagonal direction
+	if #self.collisions > 0 and (math.abs(move_x) + math.abs(move_y) <= 1) then
+		state = "push"
+	end
 
 	if move_x ~= 0 or move_y ~= 0 then
 		if move_x > 0 then

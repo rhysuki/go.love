@@ -1,5 +1,4 @@
-local StarParticle = require("demo.StarParticle")
-local StarCircle = require("demo.StarCircle")
+local StarCircle = require("demo.basic.StarCircle")
 local Logo = require("demo.Logo")
 local Player = require("demo.Player")
 local SampleAnimation = NODE:extend()

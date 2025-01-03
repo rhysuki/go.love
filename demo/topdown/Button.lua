@@ -15,11 +15,10 @@ function Button:new(x, y)
 		if LIB.batteries.mathx.distance(self.x, self.y, other.x, other.y) < 3 then
 			other.x = x
 			other.y = y
-			other.is_active = false
+			other.collision_mask = {}
 
 			if not self._has_activated then
 				self._has_activated = true
-				-- self:add_child(Ripple(self.x + 4, self.y + 4, COLORS.b16_green, 15))
 				self.activated:emit()
 			end
 		end

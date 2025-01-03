@@ -1,5 +1,5 @@
 local help = require("demo.help")
-local StarTrail = require("demo.StarTrail")
+local StarTrail = require("demo.basic.StarTrail")
 local StarCircle = NODE:extend()
 
 function StarCircle:new()

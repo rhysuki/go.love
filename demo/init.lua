@@ -1,6 +1,12 @@
-local SampleAnimation = require("demo.SampleAnimation")
+local BasicDemo = require("demo.basic.BasicDemo")
+local TopDownDemo = require("demo.topdown.TopDownDemo")
 
-return function(root)
+local demos = {
+	basic = require("demo.basic.BasicDemo"),
+	topdown = require("demo.topdown.TopDownDemo")
+}
+
+return function(root, demo_name)
 	require("globals")
-	root:add_child(SampleAnimation())
+	root:add_child(demos[demo_name]())
 end

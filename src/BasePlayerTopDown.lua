@@ -5,7 +5,7 @@ local Hitbox = require("src.Hitbox")
 ---Moves freely in all directions like in a top-down RPG.
 ---See also BasePlayer2d.
 ---@class BasePlayerTopDown: Hitbox
----@overload fun(x: number?, y: number?, use_alt_graphics: boolean): BasePlayerTopDown
+---@overload fun(x: number?, y: number?, use_alt_graphics: boolean?): BasePlayerTopDown
 local BasePlayerTopDown = Hitbox:extend()
 
 function BasePlayerTopDown:new(x, y, use_alt_graphics)

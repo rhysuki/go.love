@@ -5,10 +5,14 @@ local Hitbox = require("src.Hitbox")
 ---Moves side-to-side and jumps like in a side-scrolling platformer.
 ---See also BasePlayerTopDown.
 ---@class BasePlayer2d: Hitbox
----@overload fun(x: number?, y:number?): BasePlayer2d
+---@overload fun(x: number?, y:number?, use_alt_graphics: boolean): BasePlayer2d
 local BasePlayer2d = Hitbox:extend()
 
-function BasePlayer2d:new(x, y)
+function BasePlayer2d:new(x, y, use_alt_graphics)
+	if use_alt_graphics == nil then
+		use_alt_graphics = false
+	end
+
 	BasePlayer2d.super.new(self, x, y, 8, 13, {"player"}, {"wall"})
 
 	self.speed = 150
@@ -16,7 +20,8 @@ function BasePlayer2d:new(x, y)
 	self._is_flipped = false
 	self._gravity = 12
 	self._jump_velocity = -5
-	self._animation = ANIMATIONS.player.idle
+	self._animation_table = use_alt_graphics and ANIMATIONS.player_alt or ANIMATIONS.player
+	self._animation = self._animation_table.idle
 end
 
 function BasePlayer2d:update(dt)
@@ -35,9 +40,9 @@ function BasePlayer2d:update(dt)
 
 	-- Update animations
 	if self.is_grounded then
-		self._animation = move_x == 0 and ANIMATIONS.player.idle or ANIMATIONS.player.run
+		self._animation = move_x == 0 and self._animation_table.idle or self._animation_table.run
 	else
-		self._animation = self.vy < 0 and ANIMATIONS.player.jump or ANIMATIONS.player.fall
+		self._animation = self.vy < 0 and self._animation_table.jump or self._animation_table.fall
 	end
 
 	if move_x ~= 0 then

@@ -61,7 +61,8 @@ local function create_player_animation_table(atlas)
 		push_up = create_animation(atlas, player_grid("1-4", 8), 0.2),
 
 		victory = create_animation(atlas, player_grid("1-14", 14), 0.05),
-		victory_pose = create_animation(atlas, player_grid("1-1", 15), 0.05),
+		victory_short = create_animation(atlas, player_grid("1-5", 15), 0.05),
+		victory_pose = create_animation(atlas, player_grid("1-1", 16), 0.05),
 
 		-- Sidescrolling-focused animations. To flip them, flip the underlying object.
 		-- Example: `animations.run.data:flipH()`
@@ -84,7 +85,5 @@ local animations = {
 function animations:update(dt)
 	update_animations(self, dt)
 end
-
---TODO: put all player animations inside tables and change every place that uses animations
 
 return animations

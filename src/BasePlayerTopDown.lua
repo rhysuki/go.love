@@ -5,16 +5,21 @@ local Hitbox = require("src.Hitbox")
 ---Moves freely in all directions like in a top-down RPG.
 ---See also BasePlayer2d.
 ---@class BasePlayerTopDown: Hitbox
----@overload fun(x: number?, y: number?): BasePlayerTopDown
+---@overload fun(x: number?, y: number?, use_alt_graphics: boolean): BasePlayerTopDown
 local BasePlayerTopDown = Hitbox:extend()
 
-function BasePlayerTopDown:new(x, y)
+function BasePlayerTopDown:new(x, y, use_alt_graphics)
+	if use_alt_graphics == nil then
+		use_alt_graphics = false
+	end
+
 	BasePlayerTopDown.super.new(self, x, y, 13, 13, {"player"}, {"wall"})
 
 	self.speed = 80
 	self.debug_draw_mode = "line"
 	self._facing_direction = "down"
-	self._animation = ANIMATIONS.player.idle_down
+	self._animation_table = use_alt_graphics and ANIMATIONS.player_alt or ANIMATIONS.player
+	self._animation = self._animation_table.idle_down
 end
 
 function BasePlayerTopDown:update(dt)
@@ -47,7 +52,7 @@ function BasePlayerTopDown:update(dt)
 		end
 	end
 
-	self._animation = ANIMATIONS.player[state .. "_" .. self._facing_direction]
+	self._animation = self._animation_table[state .. "_" .. self._facing_direction]
 
 	if self._animation ~= previous_animation then
 		self._animation.data:gotoFrame(1)

@@ -9,7 +9,6 @@ local Logo = NODE:extend()
 function Logo:new(x, y)
 	x = x or WINDOW.half_screen_width
 	y = y or WINDOW.half_screen_height
-
 	Logo.super.new(self, x, y)
 
 	local logo_characters = self:add_child(NODE())

@@ -1,9 +1,9 @@
 local Node = require("src.Node")
----Copy/paste this to skip basic boilerplate. You can replace the `require` there
----by just using `NODE:extend()` with globals on.
+---Copy/paste this to skip basic boilerplate. You can delete the `require` there
+---and just use `NODE:extend()` (provided you have globals enabled).
 ---
 ---Note: It's important to write `ClassName.super` instead of `self.super`
----because the former seems to cause some weird "Failed to initialize filesystem:
+---because the latter seems to cause some weird "Failed to initialize filesystem:
 ---already initialized" bug.
 ---@class NewClass: Node
 local NewClass = Node:extend()

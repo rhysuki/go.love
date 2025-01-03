@@ -23,6 +23,7 @@ LIB = {
 	bump = require("lib.bump.bump"),
 	classic = require("lib.classic.classic"),
 	timer = require("lib.hump.timer"),
+	inspect = require("lib.inspect.inspect"),
 	log = require("lib.log.log"),
 	moses = require("lib.moses.moses"),
 	push = require("lib.push.push")

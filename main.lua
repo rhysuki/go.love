@@ -20,7 +20,7 @@ function love.load()
 	animations = require("assets.data.collections.animations")
 
 	require("globals")
-	require("demo")(root)
+	require("demo")(root, "topdown")
 	log.info("Finished loading")
 end
 

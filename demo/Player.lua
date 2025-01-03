@@ -3,7 +3,7 @@ local Player = NODE:extend()
 
 function Player:new()
 	Player.super.new(self)
-	self._animation = ANIMATIONS.player_run
+	self._animation = ANIMATIONS.player.run
 	self.x = -18
 	self.y = WINDOW.screen_height - 16
 
@@ -19,7 +19,7 @@ function Player:update(dt)
 
 	if self.x > WINDOW.screen_width * 0.5 and not self._has_jumped then
 		self._vy = -3.5
-		self._animation = ANIMATIONS.player_jump
+		self._animation = ANIMATIONS.player.jump
 		self._has_jumped = true
 		help.sounds.jump:play()
 	end

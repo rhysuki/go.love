@@ -4,6 +4,10 @@
 
 A simple project skeleton for [LÖVE](https://love2d.org/) games that takes inspiration from [Godot](https://godotengine.org/). It's geared toward low-spec 2D pixel-art games, and includes libraries and assets to get you up and running as soon as you fork the repo.
 
+* Combines the simplicity of LÖVE with the power of Godot
+* Nodes and Signals make it easy to create, extend and connect objects
+* Filled with assets: 30+ graphics, 25+ sound effects, 3 fonts, all free to use (see credits)
+
 <div align="center">
 	<a href="/LICENSE.md">
 		<img alt="GitHub License" src="https://img.shields.io/github/license/rhysuki/love-godot-base?style=for-the-badge">
@@ -70,6 +74,12 @@ See a full list in [`globals.lua`](/globals.lua).
 Issues, pull requests and suggestions are welcome. You can poke me in the [LÖVE Discord server](https://discord.gg/rhUets9).
 
 # License
-MIT License, see [LICENSE.md](/LICENSE.md) for details.
+Original code and assets have a MIT License, see [LICENSE.md](/LICENSE.md) for details.
 
 All libraries and their licenses have been included as-is (see /lib/).
+
+Please preserve the [`credits.txt`](/assets/credits.txt) file, as some assets require attribution.
+
+<div align="center">
+	<img src="/demo/assets/victory.gif">
+</div>

@@ -14,7 +14,7 @@ function BasePlayerTopDown:new(x, y)
 	self.speed = 80
 	self.debug_draw_mode = "line"
 	self._facing_direction = "down"
-	self._animation = ANIMATIONS.player_idle_down
+	self._animation = ANIMATIONS.player.idle_down
 end
 
 function BasePlayerTopDown:update(dt)
@@ -47,7 +47,7 @@ function BasePlayerTopDown:update(dt)
 		end
 	end
 
-	self._animation = ANIMATIONS["player_" .. state .. "_" .. self._facing_direction]
+	self._animation = ANIMATIONS.player[state .. "_" .. self._facing_direction]
 
 	if self._animation ~= previous_animation then
 		self._animation.data:gotoFrame(1)

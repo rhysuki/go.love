@@ -16,7 +16,7 @@ function BasePlayer2d:new(x, y)
 	self._is_flipped = false
 	self._gravity = 12
 	self._jump_velocity = -5
-	self._animation = ANIMATIONS.player_idle
+	self._animation = ANIMATIONS.player.idle
 end
 
 function BasePlayer2d:update(dt)
@@ -35,9 +35,9 @@ function BasePlayer2d:update(dt)
 
 	-- Update animations
 	if self.is_grounded then
-		self._animation = move_x == 0 and ANIMATIONS.player_idle or ANIMATIONS.player_run
+		self._animation = move_x == 0 and ANIMATIONS.player.idle or ANIMATIONS.player.run
 	else
-		self._animation = self.vy < 0 and ANIMATIONS.player_jump or ANIMATIONS.player_fall
+		self._animation = self.vy < 0 and ANIMATIONS.player.jump or ANIMATIONS.player.fall
 	end
 
 	if move_x ~= 0 then

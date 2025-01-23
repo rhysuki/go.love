@@ -36,7 +36,8 @@ function Window:setup(scale)
 	)
 
 	-- Require and create fonts AFTER setting up graphics state
-	love.graphics.setFont(require("assets.data.collections.fonts").small)
+	local fonts = require("assets.data.collections.fonts")
+	love.graphics.setFont(fonts.default)
 end
 
 ---Change the window's size to an integer scale multiple of the base resolution.

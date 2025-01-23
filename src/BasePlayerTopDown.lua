@@ -1,3 +1,5 @@
+local animations = require("assets.data.collections.animations")
+local Input = require("src.singleton.Input")
 local Hitbox = require("src.Hitbox")
 ---A barebones player character to extend from or drop into your game for instant
 ---interactivity.
@@ -18,13 +20,13 @@ function BasePlayerTopDown:new(x, y, use_alt_graphics)
 	self.speed = 80
 	self.debug_draw_mode = "line"
 	self._facing_direction = "down"
-	self._animation_table = use_alt_graphics and ANIMATIONS.player_alt or ANIMATIONS.player
+	self._animation_table = use_alt_graphics and animations.player_alt or animations.player
 	self._animation = self._animation_table.idle_down
 end
 
 function BasePlayerTopDown:update(dt)
 	-- Move
-	local move_x, move_y = INPUT:get("move")
+	local move_x, move_y = Input:get("move")
 
 	self.vx = move_x * self.speed * dt
 	self.vy = move_y * self.speed * dt

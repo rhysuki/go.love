@@ -9,7 +9,6 @@ local Node
 local root
 local animations
 
-
 function love.load()
 	Window:setup(3)
 	love.window.setTitle("Project Skeleton")

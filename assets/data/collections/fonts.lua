@@ -5,5 +5,8 @@ local fonts = {
 }
 
 fonts.small:setLineHeight(0.7)
+-- Gets used during setup as the default font. You can also reset to this after
+-- `love.graphics.setFont()`.
+fonts.default = fonts.small
 
 return fonts

@@ -38,12 +38,12 @@ end
 ---Subscribe to this Signal. The function will be called when this Signal fires,
 ---and will be passed the Node as its first argument.
 ---
----For example: `ball.exited_screen:subscribe(self, self.add_point)`
+---For example: `ball.exited_screen:subscribe(self, self.increase_score)`
 ---
 ---In a pinch, it can also be given a `nil` Node and an anonymous function, but
 ---it's a bit less readable and reusable.
 ---
----For example: `ball.exited_screen:subcscribe(nil, function() self:add_point() end)`
+---For example: `ball.exited_screen:subscribe(nil, function() self:increase_score() end)`
 ---@param node table
 ---@param fn function
 function Signal:subscribe(node, fn)
@@ -53,7 +53,7 @@ end
 ---Remove the function from this Signal's subscriptions. If it wasn't already
 ---subscribed, nothing happens.
 ---
----For example: `ball.exited_screen:unsubscribe(scoreboard.add_point)`
+---For example: `ball.exited_screen:unsubscribe(scoreboard.increase_score)`
 ---@param fn function
 function Signal:unsubscribe(fn)
 	for i = #self._SUBS, 1, -1 do

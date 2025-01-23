@@ -8,8 +8,8 @@ local Node = require("src.Node")
 ---exists in, and its "collision masks" are the layers it looks for when checking
 ---for collisions.
 ---
----Hitboxes WON'T collide with anything, update their internal state, or emit Signals
----until you call `move_and_collide()`.
+---Hitboxes WON'T collide with anything or update their internal state until you
+---call `move_and_collide()`. However, they'll always emit their Signals.
 ---@class Hitbox : Node
 ---@overload fun(x: number, y: number, width: number, height: number, collision_layers: string[], collision_mask: string[], is_area: boolean?): Hitbox
 local Hitbox = Node:extend()
@@ -166,7 +166,6 @@ function Hitbox:move_and_collide()
 			col.other.on_hitbox_stay:emit(self, col)
 		end
 
-		-- Reset vx and vy accordingly, update is_grounded
 		if col.normal.x ~= 0 then
 			self.vx = 0
 		end

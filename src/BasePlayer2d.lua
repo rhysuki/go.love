@@ -1,3 +1,5 @@
+local animations = require("assets.data.collections.animations")
+local Input = require("src.singleton.Input")
 local Hitbox = require("src.Hitbox")
 ---A barebones player character to extend from or drop into your game for instant
 ---interactivity.
@@ -5,7 +7,7 @@ local Hitbox = require("src.Hitbox")
 ---Moves side-to-side and jumps like in a side-scrolling platformer.
 ---See also BasePlayerTopDown.
 ---@class BasePlayer2d: Hitbox
----@overload fun(x: number?, y:number?, use_alt_graphics: boolean): BasePlayer2d
+---@overload fun(x: number?, y:number?, use_alt_graphics: boolean?): BasePlayer2d
 local BasePlayer2d = Hitbox:extend()
 
 function BasePlayer2d:new(x, y, use_alt_graphics)
@@ -20,19 +22,19 @@ function BasePlayer2d:new(x, y, use_alt_graphics)
 	self._is_flipped = false
 	self._gravity = 12
 	self._jump_velocity = -5
-	self._animation_table = use_alt_graphics and ANIMATIONS.player_alt or ANIMATIONS.player
+	self._animation_table = use_alt_graphics and animations.player_alt or animations.player
 	self._animation = self._animation_table.idle
 end
 
 function BasePlayer2d:update(dt)
 	-- Move
-	local move_x = INPUT:get("move")
+	local move_x = Input:get("move")
 
 	self.vx = self.speed * move_x * dt
 	self.vy = self.vy + self._gravity * dt
 
 	-- Jump
-	if self.is_grounded and INPUT:pressed("confirm") then
+	if self.is_grounded and Input:pressed("confirm") then
 		self.vy = self._jump_velocity
 	end
 

@@ -2,50 +2,56 @@ local gamera = require("lib.gamera.gamera")
 local mathx = require("lib.batteries.mathx")
 local Window = require("src.singleton.Window")
 
----camera's position is its middle
+---A simplified wrapper around `gamera`. If you need to mess with internal state,
+---access `Camera.gamera`.
+---
+---Note that the Camera's position is its center.
 local Camera = {
 	_smoothed_x = 0,
 	_smoothed_y = 0,
 
+	---If `true`, the Camera's position will be automatically rounded to the nearest
+	---pixel when drawing.
+	---This prevents misalignments when objects have non-integer positions.
 	is_snapped_to_pixels = true,
-	-- is_smoothing_enabled = true,
-	-- is_origin_at_top_left = false,
 	x = Window.screen_width * 1.5,
 	y = Window.screen_height * 1.5,
 	scale = 1,
 	rotation = 0,
+	---The Camera's viewing boundaries. It won't be able to view anything outside
+	---its limits; if it tries to move past them, it snaps to them and stops.
+	limit = {
+		---The minimum `x` value the camera can look at. It won't be able to view anything
+		---to the left of this x-position.
+		left = -math.huge,
+		---The minimum `y` value the camera can look at. It won't be able to view anything
+		---above this y-position.
+		top = -math.huge,
+		---The maximum `x` value the camera can look at. It won't be able to view anything
+		---to the right of this x-position.
+		right = math.huge,
+		---The maximum `y` value the camera can look at. It won't be able to view anything
+		---below this y-position.
+		bottom = math.huge,
+	},
 	---Controls the speed at which  which the Camera smoothly approaches its destination
 	---at (`x`, `y`). At `0`, it always stays in place, and at `1`, it always immediately
 	---snaps to position.
-	smoothing_speed = 0.1,
-	limit_left = -math.huge,
-	limit_up = -math.huge,
-	limit_right = math.huge,
-	limit_down = math.huge,
+	smoothing_speed = 1,
 }
 
 Camera.gamera = gamera.new(-math.huge, -math.huge, math.huge, math.huge)
 
 function Camera:update(dt)
-	-- self.gamera:setWorld(self.limit_left, self.limit_up, self.limit_right, self.limit_down)
-	-- self.gamera:setPosition(self.x, self.y)
-
 	local x, y = self.x, self.y
 
-	x = mathx.clamp(x, self.limit_left, self.limit_right)
-	y = mathx.clamp(y, self.limit_up, self.limit_down)
-
-	-- if self.is_origin_at_top_left then
-	-- 	x = x + Window.half_screen_width
-	-- 	y = y + Window.half_screen_height
-	-- end
+	x = mathx.clamp(x, self.limit.left, self.limit.right)
+	y = mathx.clamp(y, self.limit.top, self.limit.bottom)
 
 	self._smoothed_x = mathx.lerp(self._smoothed_x, x, self.smoothing_speed)
 	self._smoothed_y = mathx.lerp(self._smoothed_y, y, self.smoothing_speed)
 
 	if self.is_snapped_to_pixels then
-		-- x = mathx.round(x)
-		-- y = mathx.round(y)
 		self.gamera:setPosition(
 			mathx.round(self._smoothed_x), mathx.round(self._smoothed_y)
 		)
@@ -53,15 +59,25 @@ function Camera:update(dt)
 		self.gamera:setPosition(self._smoothed_x, self._smoothed_y)
 	end
 
-	-- x, y
-	-- mathx.lerp(self.gamera.x, self.x, self.smoothing_speed),
-	-- mathx.lerp(self.gamera.y, self.y, self.smoothing_speed)
 	self.gamera:setScale(self.scale)
 	self.gamera:setAngle(self.rotation)
 end
 
 function Camera:draw(fn)
 	self.gamera:draw(fn)
+end
+
+---Change all values of the Camera's boundaries at once. It won't be able to view
+---to the left of `left`, above `top`, below `bottom`, or to the right of `right`.
+---@param left number
+---@param top number
+---@param right number
+---@param bottom number
+function Camera:set_limit(left, top, right, bottom)
+	self.limit.left = left
+	self.limit.top = top
+	self.limit.right = right
+	self.limit.bottom = bottom
 end
 
 ---Immediately set the Camera's position to the position it was smoothing toward.

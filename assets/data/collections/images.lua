@@ -1,9 +1,10 @@
----Preloaded graphics for common purposes, like items, objects, effects, etc.
-
 local function load(name)
 	return love.graphics.newImage("assets/images/" .. name .. ".png")
 end
 
+---Preloaded graphics for common purposes, like items, objects, effects, etc.
+---
+---Also includes things like image shader uniforms.
 return {
 	-- Symbols
 	bubble_exclamation = load("bubble_exclamation"),
@@ -48,4 +49,8 @@ return {
 	effect_spark = load("effect_spark"),
 	effect_spark2 = load("effect_spark2"),
 	effect_wind = load("effect_wind"),
+
+	-- Uniforms for shaders
+	palette_bubblegum_16 = load("palettes/bubblegum_16"),
+	palette_swap_bubblegum_16_dark = load("palettes/bubblegum_16_dark"),
 }

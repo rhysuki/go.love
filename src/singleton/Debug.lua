@@ -7,9 +7,9 @@ local Window = require("src.singleton.Window")
 ---enabled or disabled.
 local Debug = {
 	-- Semver of this project base
-	version = "1.2.0",
+	version = "1.3.0",
 	is_enabled = true,
-	draw_hitboxes = true,
+	is_hitbox_drawing_enabled = true,
 	are_debug_keys_enabled = true,
 	updated = Signal(),
 	drawn = Signal(),

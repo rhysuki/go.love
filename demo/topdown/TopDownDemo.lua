@@ -9,7 +9,7 @@ local TopDownDemo = NODE:extend()
 function TopDownDemo:new()
 	TopDownDemo.super.new(self)
 
-	DEBUG.draw_hitboxes = false
+	DEBUG.is_hitbox_drawing_enabled = false
 
 	self.player = self:add_child(BasePlayerTopDown(40, 40))
 	self.button = self:add_child(Button(WINDOW.half_screen_width - 4, WINDOW.half_screen_height - 25))

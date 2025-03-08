@@ -99,7 +99,7 @@ end
 function Hitbox:draw()
 	Hitbox.super.draw(self)
 
-	if Debug.is_enabled and Debug.draw_hitboxes then
+	if Debug.is_enabled and Debug.is_hitbox_drawing_enabled then
 		love.graphics.setColor(self.debug_color)
 		love.graphics.rectangle(self.debug_draw_mode, self._world:getRect(self))
 		love.graphics.setColor(colors.white)

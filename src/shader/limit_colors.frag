@@ -4,14 +4,18 @@
 Replaces every color with the best match from a limited palette.
 https://forum.godotengine.org/t/limit-games-color-palette/3470/2.
 
-Takes in a 1-pixel-tall color palette, like the ones you'd download off Lospec.
-See an example in assets/images/palettes/bubblegum_16.png.
-
 Uses an adjusted version of human perception color weights to retain as much detail
 and contrast between colors as possible; tries to match Aseprite's image indexing
 algorithm.
 */
 
+/*
+A 1-pixel-tall image with every color the rendered graphic will use, like the ones
+you'd download off Lospec.
+
+There's preloaded palettes on `assets/data/collections/images.lua`, to use like so:
+`limit_colors_shader:send("palette", IMAGES.palette_bubblegum_16)`
+*/
 uniform Image palette;
 uniform float r_weight = 0.22;
 uniform float g_weight = 0.4;
@@ -31,7 +35,7 @@ vec4 effect(vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords)
 {
     vec4 px = Texel(tex, texture_coords);
 	int palette_width = textureSize(palette, 0).x;
-	vec4 closest_color = vec4(0.0);
+	vec4 closest_color = px;
 
 	for (int x = 0; x < palette_width; x++)
 	{

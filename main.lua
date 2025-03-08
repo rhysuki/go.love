@@ -1,5 +1,5 @@
 local Window = require("src.singleton.Window")
----Setup Window ASAP, as some things rely on window state to load properly
+-- Setup Window ASAP, as some things rely on window state to load properly
 Window:setup(3)
 
 local push = require("lib.push.push")
@@ -11,14 +11,13 @@ local Debug = require("src.singleton.Debug")
 local Camera = require("src.singleton.Camera")
 local Node = require("src.Node")
 local animations = require("assets.data.collections.animations")
-local limit_colors = love.graphics.newShader("src/shader/limit_colors.frag")
-local palette_swap = love.graphics.newShader("src/shader/palette_swap.frag")
 local root = Node()
 
 ---Draw function to pass to the Camera singleton, to avoid creating a new function
 ---every frame.
 local function draw()
-	---It seems push has trouble
+	-- Seems push has trouble getting shaders to draw over backgrounds properly,
+	-- unless we clear it again after it's activated
 	love.graphics.clear(COLORS.b16_black)
 	root:draw()
 	Debug:draw()
@@ -28,7 +27,6 @@ function love.load()
 	love.window.setTitle("Project Skeleton")
 	push:setBorderColor(colors.b16_black)
 	-- These shaders are loaded but won't do anything until you send uniforms to them
-	push:setShader({limit_colors, palette_swap})
 	require("globals")
 	require("demo")(root, "topdown")
 	log.info("Finished loading")

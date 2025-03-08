@@ -50,7 +50,7 @@ return {
 	effect_spark2 = load("effect_spark2"),
 	effect_wind = load("effect_wind"),
 
-	-- Uniforms for shaders
+	-- Shader uniforms
 	palette_bubblegum_16 = load("palettes/bubblegum_16"),
 	palette_swap_bubblegum_16_dark = load("palettes/bubblegum_16_dark"),
 }

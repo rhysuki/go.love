@@ -1,17 +1,25 @@
 #pragma language glsl3
 
 /*
-Takes in an Image with 2 rows of pixels; a set of colors in the first
-row, and the colors each of them should respectively map to in the second row.
-See an example in assets/images/palettes/bubblegum_dark.png.
+Based on the given palette, swap each specific color with a specific replacement,
+if it exists.
+
+
 */
 
+/*
+A 2-pixel-tall image. The first row of pixels represents a set of colors that should
+be replaced, and the second row has the colors each of them should respectively map to.
+
+
+There's preloaded palettes on `assets/data/collections/images.lua`, to use like so:
+`limit_colors_shader:send("palette", IMAGES.palette_swap_bubblegum_16_dark)`
+*/
 uniform Image palette;
 
 vec4 effect(vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords)
 {
     vec4 px = Texel(tex, texture_coords);
-	// vec4 out_color = px;
 	int palette_width = textureSize(palette, 0).x;
 	float palette_pixel_size = 1.0 / float(palette_width);
 

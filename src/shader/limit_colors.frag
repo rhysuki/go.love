@@ -5,6 +5,7 @@ Replaces every color with the best match from a limited palette.
 https://forum.godotengine.org/t/limit-games-color-palette/3470/2.
 
 Takes in a 1-pixel-tall color palette, like the ones you'd download off Lospec.
+See an example in assets/images/palettes/bubblegum_16.png.
 
 Uses an adjusted version of human perception color weights to retain as much detail
 and contrast between colors as possible; tries to match Aseprite's image indexing

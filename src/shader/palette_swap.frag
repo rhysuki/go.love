@@ -3,6 +3,7 @@
 /*
 Takes in an Image with 2 rows of pixels; a set of colors in the first
 row, and the colors each of them should respectively map to in the second row.
+See an example in assets/images/palettes/bubblegum_dark.png.
 */
 
 uniform Image palette;

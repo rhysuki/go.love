@@ -14,8 +14,8 @@ local Camera = {
 	---pixel when drawing.
 	---This prevents misalignments when objects have non-integer positions.
 	is_snapped_to_pixels = true,
-	x = Window.screen_width * 1.5,
-	y = Window.screen_height * 1.5,
+	x = Window.half_screen_width,
+	y = Window.half_screen_height,
 	scale = 1,
 	rotation = 0,
 	---The Camera's viewing boundaries. It won't be able to view anything outside
@@ -43,10 +43,11 @@ local Camera = {
 Camera.gamera = gamera.new(-math.huge, -math.huge, math.huge, math.huge)
 
 function Camera:update(dt)
-	local x, y = self.x, self.y
+	-- Not sure why I need this offset to get what I'm expecting (the camera looks
+	-- at 0,0 when its position is 0,0)
+	local x, y = self.x + Window.screen_width, self.y + Window.screen_height
 
-	x = mathx.clamp(x, self.limit.left, self.limit.right)
-	y = mathx.clamp(y, self.limit.top, self.limit.bottom)
+	--TODO: implement limit
 
 	self._smoothed_x = mathx.lerp(self._smoothed_x, x, self.smoothing_speed)
 	self._smoothed_y = mathx.lerp(self._smoothed_y, y, self.smoothing_speed)

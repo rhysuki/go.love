@@ -32,7 +32,7 @@ This project is thoroughly annotated and documented with [Lua Language Server](h
 
 [`Hitbox`](/src/Hitbox.lua) is a Node wrapper around [bump](https://github.com/kikito/bump.lua) that makes it easy to detect and resolve collisions.
 
-[`Input`](/src/singleton/Input.lua), [`Window`](/src/singleton/Window.lua) and [`Debug`](/src/singleton/Debug.lua) are singletons for accessing and changing game-wide state.
+See also the singletons for accessing and changing game-wide state: [`Input`](/src/singleton/Input.lua), [`Window`](/src/singleton/Window.lua), [`Debug`](/src/singleton/Debug.lua) and [`Camera`](/src/singleton/Camera.lua)
 
 ## /lib/
 

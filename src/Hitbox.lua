@@ -78,9 +78,6 @@ function Hitbox:new(x, y, width, height, collision_layers, collision_mask, is_ar
 	self.debug_color = self.is_area and {unpack(colors.yellow)} or {unpack(colors.cyan)}
 	self.debug_draw_mode = "line"
 
-	-- Tables to keep track of the objects this Hitbox collided with between frames,
-	-- to know when to call `on_hitbox_entered` and `on_hitbox_exited`.
-
 	-- Tables with tables as keys, to keep track of which objects this Hitbox collided
 	-- with between frames, for `on_hitbox_entered` and `on_hitbox_exited`.
 	self._cols = {}

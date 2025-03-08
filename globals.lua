@@ -14,6 +14,7 @@ SIGNAL = require("src.Signal")
 INPUT = require("src.singleton.Input")
 WINDOW = require("src.singleton.Window")
 DEBUG = require("src.singleton.Debug")
+CAMERA = require("src.singleton.Camera")
 
 -- Libraries
 LIB = {
@@ -22,6 +23,7 @@ LIB = {
 	batteries = require("lib.batteries"),
 	bump = require("lib.bump.bump"),
 	classic = require("lib.classic.classic"),
+	gamera = require("lib.gamera.gamera"),
 	timer = require("lib.hump.timer"),
 	inspect = require("lib.inspect.inspect"),
 	log = require("lib.log.log"),

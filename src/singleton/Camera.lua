@@ -14,10 +14,6 @@ local Camera = {
 	---pixel when drawing.
 	---This prevents misalignments when objects have non-integer positions.
 	is_snapped_to_pixels = true,
-	---The Camera's target x-position it'll try to look at. Doesn't necessarily
-	---correspond to its actual current x-position; see `x` for that.
-	-- target_x = 0,
-	-- target_y = 0,
 	x = Window.half_screen_width,
 	y = Window.half_screen_height,
 	scale = 1,
@@ -47,7 +43,6 @@ local Camera = {
 Camera.gamera = gamera.new(-math.huge, -math.huge, math.huge, math.huge)
 
 function Camera:update(dt)
-	-- local x, y = self.x + Window.screen_width, self.y + Window.screen_height
 	local x, y = self.x, self.y
 
 	x = mathx.clamp(
@@ -63,8 +58,8 @@ function Camera:update(dt)
 
 	)
 
-	self._smoothed_x = mathx.lerp(self._smoothed_x, x, self.smoothing_speed)
-	self._smoothed_y = mathx.lerp(self._smoothed_y, y, self.smoothing_speed)
+	self._smoothed_x = mathx.lerp_eps(self._smoothed_x, x, self.smoothing_speed, 0.01)
+	self._smoothed_y = mathx.lerp_eps(self._smoothed_y, y, self.smoothing_speed, 0.01)
 
 	local final_x = self._smoothed_x
 	local final_y = self._smoothed_y
@@ -72,12 +67,6 @@ function Camera:update(dt)
 	if self.is_snapped_to_pixels then
 		final_x, final_y = mathx.round(final_x), mathx.round(final_y)
 	end
-
-	-- if self.is_snapped_to_pixels then
-	-- 	self.gamera:setPosition(mathx.round(camera_x), mathx.round(camera_y))
-	-- else
-	-- 	self.gamera:setPosition(self._smoothed_x, self._smoothed_y)
-	-- end
 
 	-- Not sure why I need these offsets to get what I'm expecting (the camera looks
 	-- at 0,0 when its position is 0,0)

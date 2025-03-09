@@ -18,7 +18,7 @@ local root = Node()
 local function draw()
 	-- Seems push has trouble getting shaders to draw over backgrounds properly,
 	-- unless we clear it again after it's activated
-	love.graphics.clear(COLORS.b16_black)
+	love.graphics.clear(colors.b16_black)
 	root:draw()
 	Debug:draw()
 end
@@ -28,8 +28,10 @@ function love.load()
 	push:setBorderColor(colors.b16_black)
 	-- These shaders are loaded but won't do anything until you send uniforms to them
 	require("globals")
-	require("demo")(root, "topdown")
 	log.info("Finished loading")
+
+	local demo = require("demo")
+	demo(root, "topdown")
 end
 
 function love.update(dt)
@@ -42,6 +44,14 @@ function love.update(dt)
 end
 
 function love.draw()
+	-- Rumored workaround for LÖVE games misbehaving when streaming/recording
+	-- Apparently, when trying to capture the game, primitive draw calls flicker
+	-- until the first non-primitive one (e.g. text, images).
+	-- I hear doing this helps
+	love.graphics.setColor(colors.transparent)
+	love.graphics.print(Debug.project_name)
+	love.graphics.setColor(colors.white)
+
 	push:start()
 	Camera:draw(draw)
 	push:finish()

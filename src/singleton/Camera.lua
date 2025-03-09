@@ -21,7 +21,7 @@ local Camera = {
 	---Controls the speed at which  which the Camera smoothly approaches its destination
 	---at (`x`, `y`). At `0`, it always stays in place, and at `1`, it always immediately
 	---snaps to position.
-	smoothing_speed = 0.1,
+	smoothing_speed = 1,
 	---The Camera's viewing boundaries. It won't be able to view anything outside
 	---its limits; if it tries to move past them, it snaps to them and stops.
 	limit = {
@@ -42,6 +42,9 @@ local Camera = {
 
 Camera.gamera = gamera.new(-math.huge, -math.huge, math.huge, math.huge)
 
+---Clamp the Camera's position to its limits, smooth and snap it to pixels if applicable,
+---and update `x` and `y` to its new position.
+---@param dt number
 function Camera:update(dt)
 	local x, y = self.x, self.y
 

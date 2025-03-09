@@ -1,10 +1,7 @@
 #pragma language glsl3
 
 /*
-Based on the given palette, swap each specific color with a specific replacement,
-if it exists.
-
-
+Swap specific colors with specific replacements.
 */
 
 /*

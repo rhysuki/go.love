@@ -9,6 +9,9 @@ local Window = require("src.singleton.Window")
 local Camera = {
 	_smoothed_x = Window.half_screen_width,
 	_smoothed_y = Window.half_screen_height,
+	_shake_intensity = 0,
+	_shake_duration = 0,
+	_max_shake_duration = 0,
 
 	---If `true`, the Camera's position will be automatically rounded to the nearest
 	---pixel when drawing.
@@ -16,6 +19,14 @@ local Camera = {
 	is_snapped_to_pixels = true,
 	x = Window.half_screen_width,
 	y = Window.half_screen_height,
+	---The Camera's relative x offset, useful for looking slightly around its current
+	---position without having to modify it. Note that offsets can make the Camera
+	---look past the limit defined in `limit`.
+	offset_x = 0,
+	---The Camera's relative y offset, useful for looking slightly around its current
+	---position without having to modify it. Note that offsets can make the Camera
+	---look past the limit defined in `limit`.
+	offset_y = 0,
 	scale = 1,
 	rotation = 0,
 	---Controls the speed at which  which the Camera smoothly approaches its destination
@@ -71,9 +82,24 @@ function Camera:update(dt)
 		final_x, final_y = mathx.round(final_x), mathx.round(final_y)
 	end
 
-	-- Not sure why I need these offsets to get what I'm expecting (the camera looks
-	-- at 0,0 when its position is 0,0)
-	self.gamera:setPosition(final_x + Window.screen_width, final_y + Window.screen_height)
+	if self._shake_duration > 0 then
+		self._shake_duration = self._shake_duration - dt
+
+		local angle = math.rad(love.math.random() * 360)
+		local progress = self._shake_duration / self._max_shake_duration
+		-- `progress * progress` makes a slightly smoother curve than just `progress`
+		local intensity = self._shake_intensity * progress * progress
+
+		final_x = final_x + math.cos(angle) * intensity
+		final_y = final_y + math.sin(angle) * intensity
+	end
+
+	-- Not sure why I need these screen offsets to get the camera to look at (0, 0)
+	-- when its position is (0, 0)
+	self.gamera:setPosition(
+		final_x + Window.screen_width + self.offset_x,
+		final_y + Window.screen_height + self.offset_y
+	)
 	self.gamera:setScale(self.scale)
 	self.gamera:setAngle(self.rotation)
 	self.x, self.y = self._smoothed_x, self._smoothed_y
@@ -126,6 +152,18 @@ end
 ---@return number, number
 function Camera:to_screen_position(x, y)
 	return self.gamera:toScreen(x, y)
+end
+
+---Shake the camera around at `intensity` pixels off-center for `duration` seconds.
+---The intensity of the shake decreases smoothly until it stops.
+---
+---Note that shaking can make the Camera look outside its limit defined in `limit`.
+---@param intensity number
+---@param duration number
+function Camera:shake(intensity, duration)
+	self._shake_intensity = intensity
+	self._max_shake_duration = duration
+	self._shake_duration = duration
 end
 
 return Camera

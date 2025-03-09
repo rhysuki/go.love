@@ -39,6 +39,10 @@ function Node:new(x, y)
 	self.image_offset_x = 0
 	-- The amount, in pixels, to add to `self.image`'s `y` position when drawing.
 	self.image_offset_y = 0
+	-- If `image` is set, it will automatically be drawn using this shader. By
+	-- default, it's a simple palette swap shader (see `src/shader/palette_swap.frag`),
+	-- but you can replace it.
+	self.image_shader = love.graphics.newShader("src/shader/palette_swap.frag")
 
 	-- Fires when this Node dies.
 	self.died = Signal()
@@ -70,11 +74,13 @@ end
 
 function Node:draw()
 	if self.image then
+		love.graphics.setShader(self.image_shader)
 		love.graphics.draw(
 			self.image,
 			self.x + self.image_offset_x,
 			self.y + self.image_offset_y
 		)
+		love.graphics.setShader()
 	end
 
 	for i = 1, #self._CHILDREN do

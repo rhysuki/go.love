@@ -7,17 +7,25 @@ local Window = require("src.singleton.Window")
 ---
 ---Note that the Camera's position is its center.
 local Camera = {
-	_smoothed_x = 0,
-	_smoothed_y = 0,
+	_smoothed_x = Window.half_screen_width,
+	_smoothed_y = Window.half_screen_height,
 
 	---If `true`, the Camera's position will be automatically rounded to the nearest
 	---pixel when drawing.
 	---This prevents misalignments when objects have non-integer positions.
 	is_snapped_to_pixels = true,
+	---The Camera's target x-position it'll try to look at. Doesn't necessarily
+	---correspond to its actual current x-position; see `x` for that.
+	-- target_x = 0,
+	-- target_y = 0,
 	x = Window.half_screen_width,
 	y = Window.half_screen_height,
 	scale = 1,
 	rotation = 0,
+	---Controls the speed at which  which the Camera smoothly approaches its destination
+	---at (`x`, `y`). At `0`, it always stays in place, and at `1`, it always immediately
+	---snaps to position.
+	smoothing_speed = 0.1,
 	---The Camera's viewing boundaries. It won't be able to view anything outside
 	---its limits; if it tries to move past them, it snaps to them and stops.
 	limit = {
@@ -34,34 +42,49 @@ local Camera = {
 		---below this y-position.
 		bottom = math.huge,
 	},
-	---Controls the speed at which  which the Camera smoothly approaches its destination
-	---at (`x`, `y`). At `0`, it always stays in place, and at `1`, it always immediately
-	---snaps to position.
-	smoothing_speed = 1,
 }
 
 Camera.gamera = gamera.new(-math.huge, -math.huge, math.huge, math.huge)
 
 function Camera:update(dt)
-	-- Not sure why I need this offset to get what I'm expecting (the camera looks
-	-- at 0,0 when its position is 0,0)
-	local x, y = self.x + Window.screen_width, self.y + Window.screen_height
+	-- local x, y = self.x + Window.screen_width, self.y + Window.screen_height
+	local x, y = self.x, self.y
 
-	--TODO: implement limit
+	x = mathx.clamp(
+		x,
+		self.limit.left + Window.half_screen_width,
+		self.limit.right - Window.half_screen_width
+	)
+
+	y = mathx.clamp(
+		y,
+		self.limit.top + Window.half_screen_height,
+		self.limit.bottom - Window.half_screen_height
+
+	)
 
 	self._smoothed_x = mathx.lerp(self._smoothed_x, x, self.smoothing_speed)
 	self._smoothed_y = mathx.lerp(self._smoothed_y, y, self.smoothing_speed)
 
+	local final_x = self._smoothed_x
+	local final_y = self._smoothed_y
+
 	if self.is_snapped_to_pixels then
-		self.gamera:setPosition(
-			mathx.round(self._smoothed_x), mathx.round(self._smoothed_y)
-		)
-	else
-		self.gamera:setPosition(self._smoothed_x, self._smoothed_y)
+		final_x, final_y = mathx.round(final_x), mathx.round(final_y)
 	end
 
+	-- if self.is_snapped_to_pixels then
+	-- 	self.gamera:setPosition(mathx.round(camera_x), mathx.round(camera_y))
+	-- else
+	-- 	self.gamera:setPosition(self._smoothed_x, self._smoothed_y)
+	-- end
+
+	-- Not sure why I need these offsets to get what I'm expecting (the camera looks
+	-- at 0,0 when its position is 0,0)
+	self.gamera:setPosition(final_x + Window.screen_width, final_y + Window.screen_height)
 	self.gamera:setScale(self.scale)
 	self.gamera:setAngle(self.rotation)
+	self.x, self.y = self._smoothed_x, self._smoothed_y
 end
 
 function Camera:draw(fn)

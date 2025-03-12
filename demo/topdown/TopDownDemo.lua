@@ -27,7 +27,7 @@ function TopDownDemo:update(dt)
 		self.player.is_active = false
 		self.player._animation = self.player._animation_table.victory
 		self.player._animation.data:gotoFrame(1)
-		self.player._animation.data.onLoop = 'pauseAtEnd'
+		self.player._animation.data.onLoop = "pauseAtEnd"
 		help.sounds.jump:play()
 	end
 end

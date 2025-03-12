@@ -34,12 +34,18 @@ vec4 weigh(vec4 color)
 vec4 effect(vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords)
 {
     vec4 px = Texel(tex, texture_coords);
-	int palette_width = textureSize(palette, 0).x;
-	vec4 closest_color = px;
+	ivec2 palette_size = textureSize(palette, 0);
+	vec4 closest_color = vec4(0.0);
 
-	for (int x = 0; x < palette_width; x++)
+	// Do nothing with empty palettes
+	if (palette_size == ivec2(1))
 	{
-		float palette_pixel_size = 1.0 / float(palette_width);
+		return px;
+	}
+
+	for (int x = 0; x < palette_size.x; x++)
+	{
+		float palette_pixel_size = 1.0 / float(palette_size.x);
 		float x_coordinate = float(x) * palette_pixel_size;
 		vec4 palette_color = Texel(palette, vec2(x_coordinate, 0.0));
 

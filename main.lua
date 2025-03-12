@@ -30,8 +30,8 @@ function love.load()
 	require("globals")
 	log.info("Finished loading")
 
-	local demo = require("demo")
-	demo(root, "topdown")
+	local Demo = require("demo")
+	Demo:run(root, Demo.topdown)
 end
 
 function love.update(dt)

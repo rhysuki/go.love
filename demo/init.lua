@@ -1,12 +1,12 @@
-local BasicDemo = require("demo.basic.BasicDemo")
-local TopDownDemo = require("demo.topdown.TopDownDemo")
-
-local demos = {
-	basic = require("demo.basic.BasicDemo"),
-	topdown = require("demo.topdown.TopDownDemo")
+local Demo = {
+	basic = "demo.basic.BasicDemo",
+	topdown = "demo.topdown.TopDownDemo",
+	camera = "demo.camera.CameraDemo",
 }
 
-return function(root, demo_name)
+function Demo:run(root, name)
 	require("globals")
-	root:add_child(demos[demo_name]())
+	root:add_child(require(name)())
 end
+
+return Demo

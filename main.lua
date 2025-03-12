@@ -31,7 +31,7 @@ function love.load()
 	log.info("Finished loading")
 
 	local Demo = require("demo")
-	Demo:run(root, Demo.topdown)
+	Demo:run(root, Demo.camera)
 end
 
 function love.update(dt)

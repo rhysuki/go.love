@@ -2,8 +2,8 @@ local Node = require("src.Node")
 ---@class Twinkle: Node
 local Twinkle = Node:extend()
 
-function Twinkle:new()
-	Twinkle.super.new(self)
+function Twinkle:new(x, y)
+	Twinkle.super.new(self, x, y)
 
 	self.img = love.graphics.newImage("demo/camera/twinkle.png")
 	local grid = LIB.anim8.newGrid(73, 62, self.img:getWidth(), self.img:getHeight())

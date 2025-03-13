@@ -10,48 +10,36 @@ function CameraDemo:new()
 
 	self.overlay_color = {1, 1, 1, 1}
 	self:add_child(Background())
-	self.twinkle = self:add_child(Twinkle(WINDOW.half_screen_width, -32))
-	self.twinkle.y = -WINDOW.half_screen_height - 30
-
-	local duration = 9
-
-	LIB.timer.after(2, function()
-		LIB.timer.tween(2, self.overlay_color, {1, 1, 1, 0}, "out-circ", function()
-			LIB.timer.tween(6, self.twinkle, {y = 0}, "out-sine")
-
-			LIB.timer.after(1, function()
-				LIB.timer.tween(duration, CAMERA, {y = WINDOW.half_screen_height + 650}, "in-out-sine")
-			end)
-
-			LIB.timer.after(duration + 1, function()
-				CAMERA:shake(5, 0.5)
-				self.twinkle.cycle_palette = true
-
-				LIB.timer.after(1.5, function()
-					CAMERA:shake(5, 0.5)
-					self.twinkle:die()
-					self:add_child(Logo(CAMERA.x, CAMERA.y))
-
-					LIB.timer.after(4, function()
-						self.overlay_color = {0, 0, 0, 0}
-						LIB.timer.tween(2, self.overlay_color, {0, 0, 0, 1}, "out-circ")
-					end)
-				end)
-			end)
-		end)
-	end)
-
-	-- LIB.timer.after(duration + 2.5, function()
-	-- 	CAMERA:shake(5, 0.5)
-	-- 	self.twinkle:die()
-	-- 	self:add_child(Logo(CAMERA.x, CAMERA.y))
-	-- end)
+	self.twinkle = self:add_child(Twinkle(0, -WINDOW.half_screen_height - 30))
+	self.async = LIB.batteries.async()
 
 	WINDOW.shaders.limit_colors:send("palette", IMAGES.palette_bubblegum_16)
+
+	self.async:call(function()
+		self:wait(2)
+		self:await_tween(2, self.overlay_color, {1, 1, 1, 0}, "out-circ")
+		LIB.timer.tween(6, self.twinkle, {y = 0}, "out-sine")
+
+		self:wait(1)
+		self:await_tween(9, CAMERA, {y = WINDOW.half_screen_height + 650}, "in-out-sine")
+		self:wait(1)
+		CAMERA:shake(5, 0.5)
+		self.twinkle.cycle_palette = true
+
+		self:wait(1.5)
+		CAMERA:shake(5, 0.5)
+		self.twinkle:die()
+		self:add_child(Logo(CAMERA.x, CAMERA.y))
+
+		self:wait(4)
+		self.overlay_color = {0, 0, 0, 0}
+		LIB.timer.tween(2, self.overlay_color, {0, 0, 0, 1}, "out-circ")
+	end)
 end
 
 function CameraDemo:update(dt)
 	CameraDemo.super.update(self, dt)
+	self.async:update(dt)
 end
 
 function CameraDemo:draw()
@@ -66,6 +54,11 @@ function CameraDemo:draw()
 		WINDOW.screen_height
 	)
 	love.graphics.setColor(COLORS.white)
+end
+
+function CameraDemo:await_tween(duration, ...)
+	LIB.timer.tween(duration, ...)
+	self:wait(duration)
 end
 
 return CameraDemo

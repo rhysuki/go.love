@@ -53,4 +53,7 @@ return {
 	-- Shader uniforms
 	palette_bubblegum_16 = load("palettes/bubblegum_16"),
 	palette_swap_bubblegum_16_dark = load("palettes/bubblegum_16_dark"),
+	-- With the included shaders, sending this as an uniform resets them back
+	-- to doing nothing
+	empty = load("palettes/empty"),
 }

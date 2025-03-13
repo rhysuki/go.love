@@ -139,4 +139,18 @@ function Node:die()
 	self.died:emit()
 end
 
+---Inside a `batteries.async` kernel, stall for `duration` seconds, then continue.
+---For an example of async usage, see `demo/camera/CameraDemo.lua`.
+---
+---CAUTION: Do not call this outside an async kernel, it'll hang!
+---@param duration number
+function Node:wait(duration)
+	local timeout = false
+	LIB.timer.after(duration, function() timeout = true end)
+
+	while not timeout do
+		LIB.batteries.async.stall()
+	end
+end
+
 return Node

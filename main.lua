@@ -26,7 +26,6 @@ end
 function love.load()
 	love.window.setTitle("Project Skeleton")
 	push:setBorderColor(colors.b16_black)
-	-- These shaders are loaded but won't do anything until you send uniforms to them
 	require("globals")
 	log.info("Finished loading")
 

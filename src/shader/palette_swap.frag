@@ -1,7 +1,7 @@
 #pragma language glsl3
 
 /*
-Swap specific colors with specific replacements.
+Swaps specific colors with specific replacements.
 */
 
 /*

@@ -2,10 +2,12 @@ local gamera = require("lib.gamera.gamera")
 local mathx = require("lib.batteries.mathx")
 local Window = require("src.singleton.Window")
 
----A simplified wrapper around `gamera`. If you need to mess with internal state,
----access `Camera.gamera`.
+---A simplified wrapper around `gamera`. By setting `x`, `y`, `scale` and `rotation`,
+---you can make the screen "look" at things. You can finetune it with `smoothing`,
+---`limit`, and `offset_x`/`offset_y`. Shake it with `shake()`.
 ---
----Note that the Camera's position is its center.
+---Note that the Camera is centered; setting the Camera's position to (`0`, `0`)
+---will show the game's origin point in the middle of the screen.
 local Camera = {
 	_smoothed_x = Window.half_screen_width,
 	_smoothed_y = Window.half_screen_height,
@@ -29,24 +31,24 @@ local Camera = {
 	offset_y = 0,
 	scale = 1,
 	rotation = 0,
-	---Controls the speed at which  which the Camera smoothly approaches its destination
-	---at (`x`, `y`). At `0`, it always stays in place, and at `1`, it always immediately
-	---snaps to position.
-	smoothing_speed = 1,
+	---Controls how smoothly the Camera approaches its destination at (`x`, `y`).
+	---At `0`, smoothing is disabled, and it always immediately snaps into place.
+	---At `1`, it takes so long to speed up that it never moves.
+	smoothing = 0,
 	---The Camera's viewing boundaries. It won't be able to view anything outside
 	---its limits; if it tries to move past them, it snaps to them and stops.
 	limit = {
 		---The minimum `x` value the camera can look at. It won't be able to view anything
-		---to the left of this x-position.
+		---to the left of this x-position (unless you use offsets).
 		left = -math.huge,
 		---The minimum `y` value the camera can look at. It won't be able to view anything
-		---above this y-position.
+		---above this y-position (unless you use offsets).
 		top = -math.huge,
 		---The maximum `x` value the camera can look at. It won't be able to view anything
-		---to the right of this x-position.
+		---to the right of this x-position (unless you use offsets).
 		right = math.huge,
 		---The maximum `y` value the camera can look at. It won't be able to view anything
-		---below this y-position.
+		---below this y-position (unless you use offsets).
 		bottom = math.huge,
 	},
 }
@@ -72,8 +74,8 @@ function Camera:update(dt)
 
 	)
 
-	self._smoothed_x = mathx.lerp_eps(self._smoothed_x, x, self.smoothing_speed, 0.01)
-	self._smoothed_y = mathx.lerp_eps(self._smoothed_y, y, self.smoothing_speed, 0.01)
+	self._smoothed_x = mathx.lerp_eps(self._smoothed_x, x, 1 - self.smoothing, 0.01)
+	self._smoothed_y = mathx.lerp_eps(self._smoothed_y, y, 1 - self.smoothing, 0.01)
 
 	local final_x = self._smoothed_x
 	local final_y = self._smoothed_y
@@ -110,7 +112,8 @@ function Camera:draw(fn)
 end
 
 ---Change all values of the Camera's boundaries at once. It won't be able to view
----to the left of `left`, above `top`, below `bottom`, or to the right of `right`.
+---to the left of `left`, above `top`, below `bottom`, or to the right of `right`,
+---unless it's offset with `offset_x`/`offset_y` or shaken with `shake()`.
 ---@param left number
 ---@param top number
 ---@param right number
@@ -123,15 +126,19 @@ function Camera:set_limit(left, top, right, bottom)
 end
 
 ---Immediately set the Camera's position to the position it was smoothing toward.
----If `smoothing` is disabled (set to `1`), this does nothing.
+---If `smoothing` is disabled (set to `0`), this does nothing.
 function Camera:reset_smoothing()
 	self._smoothed_x = self.x
 	self._smoothed_y = self.y
 end
 
----Convert screen coordinates to ingame coordinates. For example,
----`draw_circle(Camera:to_game_position(Window:get_mouse_position()))` always draws
----a circle in the middle of the screen.
+---Convert screen coordinates to ingame coordinates. For example, to draw a circle
+---that's always in the middle of the screen:
+---
+---```lua
+---local cx, cy = Camera:to_game_position(Window.half_screen_width, Window.half_screen_height)
+---love.graphics.circle("fill", cx, cy, 100)
+---```
 ---@param x number
 ---@param y number
 ---@return number, number

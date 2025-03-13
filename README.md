@@ -20,6 +20,10 @@ To see the demo, run this repo as a LÖVE project. You can safely delete the ent
 
 This project is thoroughly annotated and documented with [Lua Language Server](https://luals.github.io/) annotations, which help tremendously for diagnostics, autocompletion, and opt-in type safety. If your environment doesn't support LLS, you can safely remove comments like `---@class`, `---@field`, etc, to make the code less noisy.
 
+<div align="center">
+	<img src="/demo/assets/sky.gif">
+</div>
+
 ## /src/
 
 > [!IMPORTANT]

@@ -33,7 +33,7 @@ function Logo:new(x, y)
 
 	LIB.timer.after(1, function()
 		logo_characters:die()
-		self:add_child(StarParticleCurtain())
+		self:add_child(StarParticleCurtain(self.x - WINDOW.half_screen_width, self.y - WINDOW.half_screen_height))
 		self:add_child(LogoText(self.x - 14, self.y - 10))
 		help.sounds.jingle:play()
 	end)

@@ -9,7 +9,7 @@ local TopDownDemo = NODE:extend()
 function TopDownDemo:new()
 	TopDownDemo.super.new(self)
 
-	DEBUG.draw_hitboxes = false
+	DEBUG.is_hitbox_drawing_enabled = false
 
 	self.player = self:add_child(BasePlayerTopDown(40, 40))
 	self.button = self:add_child(Button(WINDOW.half_screen_width - 4, WINDOW.half_screen_height - 25))
@@ -27,7 +27,7 @@ function TopDownDemo:update(dt)
 		self.player.is_active = false
 		self.player._animation = self.player._animation_table.victory
 		self.player._animation.data:gotoFrame(1)
-		self.player._animation.data.onLoop = 'pauseAtEnd'
+		self.player._animation.data.onLoop = "pauseAtEnd"
 		help.sounds.jump:play()
 	end
 end

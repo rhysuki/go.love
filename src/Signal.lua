@@ -86,7 +86,9 @@ function Signal:emit(...)
 	for _ = #self._SUBS, 1, -1 do
 		local node, fn = self._SUBS[1], self._SUBS[2]
 
-		if not node.is_alive then
+		-- Explicitly checking for `false` here to catch non-Node tables that simply
+		-- don't have an `is_alive`
+		if node.is_alive == false then
 			self:unsubscribe(fn)
 		end
 	end
@@ -94,7 +96,8 @@ function Signal:emit(...)
 	for _, sub in ipairs(self._SUBS) do
 		local node, fn = sub[1], sub[2]
 
-		if node.is_alive then
+		-- Same here, see above comment
+		if node.is_alive ~= false then
 			fn(node, ...)
 		end
 	end
@@ -102,6 +105,8 @@ end
 
 ---Stall whichever async kernel's currently running until this signal fires.
 ---This is useful with the `async` module from the `batteries` library.
+---
+---CAUTION: Do not call this outside an async kernel, it'll hang!
 function Signal:await()
 	local has_fired = false
 	local function fn()

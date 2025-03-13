@@ -7,9 +7,18 @@ local Window = {
 	scale = 1,
 	width = 0,
 	height = 0,
-	-- Change these two fields to change the base resolution of the game.
+	-- Change these two fields to change the base resolution of the game
 	screen_width = 256,
 	screen_height = 192,
+
+	---The global shaders that're always loaded and get applied at the end of a
+	---frame. Since shader creation relies on graphics being loaded, these are only
+	---initialized on `Window:setup()`.
+	---@type {[string]: love.Shader?}
+	shaders = {
+		limit_colors = nil,
+		palette_swap = nil,
+	}
 }
 
 Window.half_screen_width = Window.screen_width / 2
@@ -38,6 +47,20 @@ function Window:setup(scale)
 	-- Require and create fonts AFTER setting up graphics state
 	local fonts = require("assets.data.collections.fonts")
 	love.graphics.setFont(fonts.default)
+
+	self.shaders.limit_colors = love.graphics.newShader("src/shader/limit_colors.frag")
+	self.shaders.palette_swap = love.graphics.newShader("src/shader/palette_swap.frag")
+
+	-- These shaders are loaded by default but won't do anything until you send
+	-- them uniforms
+	push:setShader({
+		self.shaders.limit_colors,
+		self.shaders.palette_swap,
+		-- Somehow, for some obscure reason, the last shader in this table is
+		-- getting applied twice. This works around it by making the last shader
+		-- do nothing at all, twice. I feel tested
+		love.graphics.newShader("src/shader/nothing.frag"),
+	})
 end
 
 ---Change the window's size to an integer scale multiple of the base resolution.

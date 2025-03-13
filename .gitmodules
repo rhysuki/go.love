@@ -28,3 +28,6 @@
 [submodule "lib/inspect"]
 	path = lib/inspect
 	url = https://github.com/kikito/inspect.lua
+[submodule "lib/gamera"]
+	path = lib/gamera
+	url = https://github.com/kikito/gamera

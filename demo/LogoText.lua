@@ -27,8 +27,8 @@ function LogoText:draw()
 
 	love.graphics.setColor(self._dark_pink)
 	love.graphics.printf(
-		"Love-Godot Template\nv" .. DEBUG.version,
-		self.x - 37,
+		DEBUG.project_name .. " v" .. DEBUG.version .. "\n" .. DEBUG.version_name,
+		self.x - 35,
 		self.y + self._progress * 10,
 		100,
 		"center"

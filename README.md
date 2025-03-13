@@ -6,8 +6,7 @@ A simple project skeleton for [LÖVE](https://love2d.org/) games that takes insp
 
 <div align="center">
 	<a href="/LICENSE.md">
-		<img alt="GitHub License" src="https://img.shields.io/github/license/rhysuki/love-godot-base?style=for-the-badge">
-	</a>
+		<img alt="GitHub License" src="https://img.shields.io/github/license/rhysuki/love-godot-base?style=for-the-badge"></a>
 	<img alt="GitHub Release" src="https://img.shields.io/github/v/release/rhysuki/love-godot-base?style=for-the-badge">
 	<br>
 	<a href="https://github.com/rhysuki/love-godot-base/releases/latest">
@@ -17,7 +16,7 @@ A simple project skeleton for [LÖVE](https://love2d.org/) games that takes insp
 
 # Usage
 
-To see the demo, run this repo as a LÖVE project. You can safely delete the entire `demo` folder and the line `require("demo")(root)` in `main.lua`.
+To see the demo, run this repo as a LÖVE project. You can safely delete the entire `demo` folder and the line `Demo:run(root, Demo.basic)` in `main.lua`.
 
 This project is thoroughly annotated and documented with [Lua Language Server](https://luals.github.io/) annotations, which help tremendously for diagnostics, autocompletion, and opt-in type safety. If your environment doesn't support LLS, you can safely remove comments like `---@class`, `---@field`, etc, to make the code less noisy.
 
@@ -32,7 +31,7 @@ This project is thoroughly annotated and documented with [Lua Language Server](h
 
 [`Hitbox`](/src/Hitbox.lua) is a Node wrapper around [bump](https://github.com/kikito/bump.lua) that makes it easy to detect and resolve collisions.
 
-[`Input`](/src/singleton/Input.lua), [`Window`](/src/singleton/Window.lua) and [`Debug`](/src/singleton/Debug.lua) are singletons for accessing and changing game-wide state.
+See also the singletons for accessing and changing game-wide state: [`Input`](/src/singleton/Input.lua), [`Window`](/src/singleton/Window.lua), [`Debug`](/src/singleton/Debug.lua) and [`Camera`](/src/singleton/Camera.lua).
 
 ## /lib/
 
@@ -43,6 +42,7 @@ Libraries for common operations. Submodules are included for:
 * [batteries](https://github.com/1bardesign/batteries) - A better "standard library" for LÖVE games. Has utilities for math, sequencing, timing, vectors and more.
 * [bump](https://github.com/kikito/bump.lua) - Collision detection and resolution for axis-aligned bounding boxes (AABBs).
 * [classic](https://github.com/rxi/classic) - Tiny, battle-tested class module for object orientation.
+* [gamera](https://github.com/kikito/gamera) - A camera system.
 * [hump](https://github.com/vrld/hump) - General-purpose utilities for LÖVE. This template mostly uses it for its timing and tweening functions.
 * [inspect](https://github.com/kikito/inspect.lua) - Renders tables in a human-readable way.
 * [log.lua](https://github.com/rxi/log.lua) - A tiny logging module.

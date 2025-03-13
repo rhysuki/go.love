@@ -1,12 +1,12 @@
----anim8 objects ready to use, mainly a player character.
----This module bundles atlases and animations together to avoid having to pass
----them around manually. To mess with their internal state, call methods on each
----animation's `data` field, which is just a raw anim8 object.
-
 local anim8 = require("lib.anim8.anim8")
 local player_atlas = love.graphics.newImage("assets/images/player.png")
 local player_alt_atlas = love.graphics.newImage("assets/images/player_alt.png")
 local player_grid = anim8.newGrid(16, 16, player_atlas:getWidth(), player_atlas:getHeight())
+---anim8 objects ready to use, mainly a player character.
+---This module bundles atlases and animations together to avoid having to pass
+---them around manually. To mess with their internal state, call methods on each
+---animation's `data` field, which is just a raw anim8 object.
+local animations = {}
 
 ---Draw this animation. All extra arguments, like position, size, offset, etc,
 ---are passed to this animation's `love.graphics.draw()`.
@@ -75,10 +75,8 @@ local function create_player_animation_table(atlas)
 	}
 end
 
-local animations = {
-	player = create_player_animation_table(player_atlas),
-	player_alt = create_player_animation_table(player_alt_atlas),
-}
+animations.player = create_player_animation_table(player_atlas)
+animations.player_alt = create_player_animation_table(player_alt_atlas)
 
 ---Update every registered animation. Should be called only once per frame.
 ---@param dt number

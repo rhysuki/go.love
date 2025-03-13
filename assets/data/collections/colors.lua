@@ -1,10 +1,9 @@
----A few common colors, plus this particular project's palette of choice,
----Bubblegum 16. https://lospec.com/palette-list/bubblegum-16
-
 local function color(r, g, b, a)
 	return {love.math.colorFromBytes(r, g, b, a)}
 end
 
+---A few common colors, plus this particular project's palette of choice,
+---Bubblegum 16. https://lospec.com/palette-list/bubblegum-16
 return {
 	-- White's fully transparent to fully reset love.graphics.setColor.
 	white = {1, 1, 1, 1},

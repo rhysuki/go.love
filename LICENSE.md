@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2024 Nicole "rhysuki" Sanches
+Copyright (c) 2024-2025 rhysuki
 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
